@@ -1,0 +1,8 @@
+<% @books.each do |book| %>
+  <div id="book-<%= book.id %>">
+    <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
+    <h3><%= book.title %></h3>
+    <p><%= book.page_count %> pages</p>
+    <p>Published in <%= book.year_published %></p>
+  </div>
+<% end %>
