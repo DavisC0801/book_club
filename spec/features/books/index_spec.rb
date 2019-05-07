@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "As a visitor", type: :feature do
+
+  describe "when there are no books created" do
+    it "Has no data" do
+      visit "/books"
+
+      expect(page).to_not have_content("Published in")
+      expect(page).to_not have_content("pages")
+    end
+  end
+
   describe "when I visit the books index page" do
     before(:each) do
       @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
