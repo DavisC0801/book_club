@@ -23,8 +23,8 @@ RSpec.describe "As a visitor", type: :feature do
       expect(page).to have_content(@book_1.title)
       expect(page).to have_content(@author_1.name)
       expect(page).to have_content(@author_2.name)
-      expect(page).to have_content(@book_1.page_count)
-      expect(page).to have_content(@book_1.year_published)
+      expect(page).to have_content("#{@book_1.page_count} pages")
+      expect(page).to have_content("Published in #{@book_1.year_published}")
       expect(page).to have_css("img[src*='#{@book_1.thumbnail}']")
 
       expect(page).to_not have_content(@book_2.title)
