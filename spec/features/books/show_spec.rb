@@ -7,7 +7,10 @@ RSpec.describe "As a visitor", type: :feature do
     @author_1 = @book_1.authors.create!(name: "Wilkie Collins")
     @author_2 = @book_1.authors.create!(name: "Charles Dickens")
     @author_3 = @book_2.authors.create!(name: "Harper Lee")
-    # TO DO: add review resources
+    user_1 = User.create(username: "Chris Davis")
+    user_2 = User.create(username: "Alexandra Chakeres")
+    @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: user_1)
+    @review_2 = @book_2.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: user_2)
   end
 
   it "loads the page" do
@@ -32,10 +35,15 @@ RSpec.describe "As a visitor", type: :feature do
     end
 
     within "#review-list" do
-      # expect(page).to have_content(@review_1.title)
-      # expect(page).to have_content(@review_1.user.username)
-      # expect(page).to have_content(@review_1.rating)
-      # expect(page).to have_content(@review_1.text)
+      expect(page).to have_content(@review_1.title)
+      expect(page).to have_content(@review_1.user.username)
+      expect(page).to have_content(@review_1.rating)
+      expect(page).to have_content(@review_1.text)
+
+      expect(page).to_not have_content(@review_2.title)
+      expect(page).to_not have_content(@review_2.user.username)
+      expect(page).to_not have_content(@review_2.rating)
+      expect(page).to_not have_content(@review_2.text)
     end
   end
 end
