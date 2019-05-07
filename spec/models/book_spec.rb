@@ -6,4 +6,9 @@ RSpec.describe Book, type: :model do
     it {should validate_presence_of :page_count}
     it {should validate_presence_of :year_published}
   end
+
+  describe "relationships" do
+    it {should have_many :book_authors}
+    it {should have_many(:books).through(:book_authors)}
+  end
 end
