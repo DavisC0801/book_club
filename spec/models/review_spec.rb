@@ -7,8 +7,8 @@ RSpec.describe Review, type: :model do
     it {should validate_presence_of :text}
   end
 
-  # describe "relationships" do
-  #   it {should belong_to :book}
-  #   it {should belong_to :user}
-  # end
+  describe "relationships" do
+    it {should belong_to :book}
+    it {should belong_to :user}
+  end
 end
