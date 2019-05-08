@@ -13,8 +13,8 @@
 <div id="review-list">
   <% @book.reviews.each do |review|%>
   <h3><%= review.title %></h3>
-  <p><%= review.user.username %></p>
-  <p><%= review.rating %></p>
+  <p>Written by: <%= review.user.username %></p>
+  <p>Rating: <%= review.rating %>/5</p>
   <p><%= review.text %></p>
   <% end %>
 </div>

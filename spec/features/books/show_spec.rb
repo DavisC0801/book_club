@@ -36,8 +36,8 @@ RSpec.describe "As a visitor", type: :feature do
 
     within "#review-list" do
       expect(page).to have_content(@review_1.title)
-      expect(page).to have_content(@review_1.user.username)
-      expect(page).to have_content(@review_1.rating)
+      expect(page).to have_content("Written by: #{@review_1.user.username}")
+      expect(page).to have_content("Rating: #{@review_1.rating}/5")
       expect(page).to have_content(@review_1.text)
 
       expect(page).to_not have_content(@review_2.title)
