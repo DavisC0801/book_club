@@ -23,42 +23,32 @@ RSpec.describe "As a visitor", type: :feature do
       expect(current_path).to eq(author_path(@author_1))
     end
 
-    # it "shows information for a particular author" do
-    #   visit author_path(@author_1)
-    #
-    #   within "#author-show" do
-    #     expect(page).to have_content(@book_1.title)
-    #     expect(page).to have_content(@author_1.name)
-    #     expect(page).to have_content(@author_2.name)
-    #     expect(page).to have_content("#{@book_1.page_count} pages")
-    #     expect(page).to have_content("Published in #{@book_1.year_published}")
-    #     expect(page).to have_css("img[src*='#{@book_1.thumbnail}']")
-    #
-    #     expect(page).to_not have_content(@book_2.title)
-    #   end
-    #
-    #   within "#book-list" do
-    #     expect(page).to have_content("Books")
-    #
-    #     within "#book-#{@book_1.id}" do
-    #       expect(page).to have_content(@review_1.title)
-    #       expect(page).to have_content("Written by: #{@review_1.user.username}")
-    #       expect(page).to have_content("Rating: #{@review_1.rating}/5")
-    #       expect(page).to have_content(@review_1.text)
-    #     end
-    #
-    #     within "#review-#{@review_3.id}" do
-    #       expect(page).to have_content(@review_3.title)
-    #       expect(page).to have_content("Written by: #{@review_3.user.username}")
-    #       expect(page).to have_content("Rating: #{@review_3.rating}/5")
-    #       expect(page).to have_content(@review_3.text)
-    #     end
-    #
-    #     expect(page).to_not have_content(@review_2.title)
-    #     expect(page).to_not have_content("This book has no reviews yet.")
-    #     expect(page).to_not have_content("Author(s): unknown")
-    #   end
-    # end
+    it "shows information for a particular author" do
+      visit author_path(@author_1)
+
+      within "#book-list" do
+        expect(page).to have_content("Books")
+
+        within "#book-#{@book_1.id}" do
+          expect(page).to have_content(@book_1.title)
+          expect(page).to have_content("Co-authored by #{@author_2}")
+          expect(page).to have_content("#{@book_1.page_count} pages")
+          expect(page).to have_content("Published in #{@book_1.year_published}")
+          expect(page).to have_css("img[src*='#{@book_1.thumbnail}']")
+        end
+
+        within "#book-#{@book_3.id}" do
+          expect(page).to have_content(@book_3.title)
+          expect(page).to have_content("#{@book_3.page_count} pages")
+          expect(page).to have_content("Published in #{@book_3.year_published}")
+          expect(page).to have_css("img[src*='#{@book_3.thumbnail}']")
+        end
+
+        expect(page).to_not have_content(@book_2.title)
+        expect(page).to_not have_content("This author has no books in the database.")
+        expect(page).to_not have_content("Co-authored by #{@author_1.name}")
+      end
+    end
   end
 
   describe "when there is no author with the id matching the URI" do
