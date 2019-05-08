@@ -47,5 +47,6 @@ RSpec.describe "As a visitor", type: :feature do
         expect(page).to have_css("img[src*='#{@book_2.thumbnail}']")
       end
     end
+    # TO DO: add describe block / test that when a book has no author, "unknown" is displayed (similar to implementation in the books show page)
   end
 end
