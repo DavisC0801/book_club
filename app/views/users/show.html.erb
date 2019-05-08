@@ -1,4 +1,5 @@
-<% @user.reviews.each do |review| %>
+<div id="review-list">
+  <% @user.reviews.each do |review| %>
   <div id="book-<%= review.book.id %>-info">
     <img src="<%= review.book.thumbnail %>" alt="Cover of <%= review.book.title %>">
     <br><h3><%= review.book.title %></h3><br>
@@ -11,4 +12,8 @@
     <p>Rating: <%= review.rating %>/5</p>
     <p><%= review.text %></p>
   </div>
-<% end %>
+  <% end %>
+  <% if @user.reviews.count == 0 %>
+  <p>This user has written no reviews yet.</p>
+  <% end %>
+</div>
