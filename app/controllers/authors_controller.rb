@@ -1,5 +1,12 @@
 class AuthorsController < ApplicationController
   def show
-    #code
+    if Author.pluck(:id).include?(params[:id].to_i)
+      @author = Author.find(params[:id])
+    else
+      redirect_to authors_path
+    end
+  end
+
+  def index
   end
 end
