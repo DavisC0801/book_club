@@ -11,6 +11,8 @@ RSpec.describe "As a visitor", type: :feature do
     user_2 = User.create(username: "Alexandra Chakeres")
     @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: user_1)
     @review_2 = @book_2.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: user_2)
+    @review_3 = @book_1.reviews.create!(title: "It's OK.", rating: 3, text: "Meh", user: user_2)
+
   end
 
   it "loads the page" do
@@ -35,15 +37,21 @@ RSpec.describe "As a visitor", type: :feature do
     end
 
     within "#review-list" do
-      expect(page).to have_content(@review_1.title)
-      expect(page).to have_content("Written by: #{@review_1.user.username}")
-      expect(page).to have_content("Rating: #{@review_1.rating}/5")
-      expect(page).to have_content(@review_1.text)
+      within "#review-#{@review_1.id}" do
+        expect(page).to have_content(@review_1.title)
+        expect(page).to have_content("Written by: #{@review_1.user.username}")
+        expect(page).to have_content("Rating: #{@review_1.rating}/5")
+        expect(page).to have_content(@review_1.text)
+      end
+
+      within "#review-#{@review_3.id}" do
+        expect(page).to have_content(@review_3.title)
+        expect(page).to have_content("Written by: #{@review_3.user.username}")
+        expect(page).to have_content("Rating: #{@review_3.rating}/5")
+        expect(page).to have_content(@review_3.text)
+      end
 
       expect(page).to_not have_content(@review_2.title)
-      expect(page).to_not have_content(@review_2.user.username)
-      expect(page).to_not have_content(@review_2.rating)
-      expect(page).to_not have_content(@review_2.text)
     end
   end
 
