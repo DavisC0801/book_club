@@ -46,4 +46,10 @@ RSpec.describe "As a visitor", type: :feature do
       expect(page).to_not have_content(@review_2.text)
     end
   end
+
+  it "redirects to books index when no id matches the URI" do
+    visit "/books/#{@book_1.id + 5}"
+
+    expect(current_path).to eq("/books")
+  end
 end

@@ -4,6 +4,10 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.find(params[:id])
+    if Book.pluck(:id).include?(params[:id].to_i)
+      @book = Book.find(params[:id])
+    else
+      redirect_to "/books"
+    end
   end
 end
