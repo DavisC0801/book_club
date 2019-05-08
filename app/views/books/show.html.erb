@@ -21,7 +21,7 @@
   <% @book.reviews.each do |review|%>
     <div id="review-<%= review.id %>">
       <h3><%= review.title %></h3>
-      <p>Written by: <%= review.user.username %></p>
+      <p>Written by: <a href="<%= user_path(review.user) %>"><%= review.user.username %></a></p>
       <p>Rating: <%= review.rating %>/5</p>
       <p><%= review.text %></p>
     </div>
