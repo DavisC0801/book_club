@@ -7,8 +7,8 @@ RSpec.describe "As a visitor", type: :feature do
       @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 281, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
       @author_1 = @book_1.authors.create!(name: "Wilkie Collins")
       @author_2 = @book_1.authors.create!(name: "Charles Dickens")
-      @author_3 = @book_2.authors.create!(name: "Harper Lee")
-      @book_3 = @author_1.books.create!(title: "The Moonstone", page_count: 528, year_published: 1868, thumbnail: "https://en.wikipedia.org/wiki/File:The_Moonstone_1st_ed.jpg")
+      @author_3 = @book_1.authors.create!(name: "Harper Lee")
+      @book_3 = @author_1.books.create!(title: "The Moonstone", page_count: 528, year_published: 1868, thumbnail: "https://upload.wikimedia.org/wikipedia/commons/2/26/The_Moonstone_1st_ed.jpg")
       user_1 = User.create(username: "Chris Davis")
       user_2 = User.create(username: "Alexandra Chakeres")
       @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: user_1)
@@ -33,7 +33,7 @@ RSpec.describe "As a visitor", type: :feature do
 
         within "#book-#{@book_1.id}" do
           expect(page).to have_content(@book_1.title)
-          expect(page).to have_content("Co-authored by #{@author_2.name}")
+          expect(page).to have_content("Co-authored by #{@author_2.name}, #{@author_3.name}")
           expect(page).to have_content("#{@book_1.page_count} pages")
           expect(page).to have_content("Published in #{@book_1.year_published}")
           expect(page).to have_css("img[src*='#{@book_1.thumbnail}']")

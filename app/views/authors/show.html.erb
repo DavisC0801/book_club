@@ -9,7 +9,12 @@
       <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
       <h3><%= book.title %></h3>
       <% if book.author_count > 1 %>
-        <p>Co-authored by <%= book.coauthors(@author).first.name %></p>
+        <p>
+          Co-authored by
+          <% book.coauthors(@author).each_with_index do |coauthor, i| %>
+            <%= coauthor.name %><%= ", " if i < book.author_count - 2 %>
+          <% end %>
+        </p>
       <% end %>
       <p><%= book.page_count %> pages</p>
       <p>Published in <%= book.year_published %></p>
