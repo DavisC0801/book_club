@@ -71,28 +71,15 @@ RSpec.describe "As a visitor", type: :feature do
     end
   end
 
-  # describe "when the book has no reviews" do
-  #   it "displays a message as such" do
-  #     book_5 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
-  #
-  #     visit book_path(book_5)
-  #
-  #     within "#review-list" do
-  #       expect(page).to have_content("This book has no reviews yet.")
-  #     end
-  #   end
-  # end
-
   describe "when the author has no books" do
-    # TO DO
-    # it "says author is unknown" do
-    #   book_6 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
-    #
-    #   visit book_path(book_6)
-    #
-    #   within "#book-show" do
-    #     expect(page).to have_content("Author(s): unknown")
-    #   end
-    # end
+    it "displays a message as such" do
+      author_5 = Author.create!(name: "Sally")
+
+      visit author_path(author_5)
+
+      within "#book-list" do
+        expect(page).to have_content("This author has no books in the database.")
+      end
+    end
   end
 end
