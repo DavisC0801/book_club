@@ -54,6 +54,7 @@ RSpec.describe "As a visitor", type: :feature do
         end
 
         expect(page).to_not have_content(@review_2.title)
+        expect(page).to_not have_content("This book has no reviews yet.")
       end
     end
   end
@@ -65,6 +66,18 @@ RSpec.describe "As a visitor", type: :feature do
       visit "/books/#{book_4.id + 5}"
 
       expect(current_path).to eq("/books")
+    end
+  end
+
+  describe "when the book has no reviews" do
+    it "displays a message as such" do
+      book_5 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+
+      visit "/books/#{book_5.id}"
+
+      within "#review-list" do
+        expect(page).to have_content("This book has no reviews yet.")
+      end
     end
   end
 end

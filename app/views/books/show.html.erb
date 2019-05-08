@@ -11,6 +11,10 @@
 </div>
 
 <div id="review-list">
+  <h2>Reviews:</h2>
+  <% if @book.review_count == 0 %>
+    <p>This book has no reviews yet.</p>
+  <% end %>
   <% @book.reviews.each do |review|%>
     <div id="review-<%= review.id %>">
       <h3><%= review.title %></h3>
