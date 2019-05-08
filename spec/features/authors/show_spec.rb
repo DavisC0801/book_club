@@ -26,12 +26,14 @@ RSpec.describe "As a visitor", type: :feature do
     it "shows information for a particular author" do
       visit author_path(@author_1)
 
+      expect(page).to have_content(@author_1.name)
+
       within "#book-list" do
         expect(page).to have_content("Books")
 
         within "#book-#{@book_1.id}" do
           expect(page).to have_content(@book_1.title)
-          expect(page).to have_content("Co-authored by #{@author_2}")
+          expect(page).to have_content("Co-authored by #{@author_2.name}")
           expect(page).to have_content("#{@book_1.page_count} pages")
           expect(page).to have_content("Published in #{@book_1.year_published}")
           expect(page).to have_css("img[src*='#{@book_1.thumbnail}']")

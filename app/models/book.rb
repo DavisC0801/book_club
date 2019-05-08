@@ -14,4 +14,8 @@ class Book < ApplicationRecord
   def author_count
     authors.count
   end
+
+  def coauthors(author)
+    authors - [author]
+  end
 end

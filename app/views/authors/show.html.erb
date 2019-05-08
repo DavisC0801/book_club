@@ -1,0 +1,18 @@
+<div id="book-list">
+  <h1><%= @author.name %></h1>
+  <h2>Books:</h2>
+  <% if @author.book_count == 0 %>
+    <p>This author has no books in the database.</p>
+  <% end %>
+  <% @author.books.each do |book|%>
+    <div id="book-<%= book.id %>">
+      <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
+      <h3><%= book.title %></h3>
+      <% if book.author_count > 1 %>
+        <p>Co-authored by <%= book.coauthors(@author).first.name %></p>
+      <% end %>
+      <p><%= book.page_count %> pages</p>
+      <p>Published in <%= book.year_published %></p>
+    </div>
+  <% end %>
+</div>
