@@ -9,6 +9,7 @@ RSpec.describe "as a visitor" do
       author_2 = @book_1.authors.create!(name: "Charles Dickens")
       author_3 = @book_2.authors.create!(name: "Harper Lee")
       @user_1 = User.create(username: "Chris Davis")
+      @user_2 = User.create(username: "Alexandra Chakeres")
       @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: @user_1)
       @review_2 = @book_2.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: @user_1)
     end
@@ -18,6 +19,7 @@ RSpec.describe "as a visitor" do
 
       click_link("#{@user_1.username}")
 
+      expect(page.status_code).to eq(200)
       expect(current_path).to eq(user_path(@user_1))
     end
 
@@ -48,6 +50,24 @@ RSpec.describe "as a visitor" do
         expect(page).to have_content("Written on: #{Date.strptime(@review_2.updated_at.to_s)}")
         expect(page).to have_content("Rating: #{@review_2.rating}/5")
         expect(page).to have_content(@review_2.text)
+      end
+    end
+
+    describe "when I give an invalid user_id" do
+      it "redirects me to the book index page" do
+        visit user_path(@user_1.id + 50)
+
+        expect(current_path).to eq(books_path)
+      end
+    end
+
+    describe "when I visit a user page that has no reviews" do
+      it "has no content" do
+        visit user_path(@user_2.id)
+        
+        within("#review-list") do
+          expect(page).to have_content("This user has written no reviews yet.")
+        end
       end
     end
   end
