@@ -1,0 +1,29 @@
+<div id="book-show">
+  <img src="<%= @book.thumbnail %>" alt="Cover of <%= @book.title %>">
+  <h3><%= @book.title %></h3>
+  <p>Author(s):
+    <% if @book.author_count == 0 %>
+      unknown
+    <% end %>
+    <% @book.authors.each do |author| %>
+      <%= author.name %><%= ", " if author != @book.authors.last %>
+    <% end %>
+  </p>
+  <p><%= @book.page_count %> pages</p>
+  <p>Published in <%= @book.year_published %></p>
+</div>
+
+<div id="review-list">
+  <h2>Reviews:</h2>
+  <% if @book.review_count == 0 %>
+    <p>This book has no reviews yet.</p>
+  <% end %>
+  <% @book.reviews.each do |review|%>
+    <div id="review-<%= review.id %>">
+      <h3><%= review.title %></h3>
+      <p>Written by: <%= review.user.username %></p>
+      <p>Rating: <%= review.rating %>/5</p>
+      <p><%= review.text %></p>
+    </div>
+  <% end %>
+</div>

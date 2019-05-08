@@ -4,7 +4,7 @@ RSpec.describe "As a visitor", type: :feature do
 
   describe "when there are no books created" do
     it "Has no data" do
-      visit "/books"
+      visit books_path
 
       expect(page).to_not have_content("Published in")
       expect(page).to_not have_content("pages")
@@ -21,14 +21,14 @@ RSpec.describe "As a visitor", type: :feature do
     end
 
     it "loads the page" do
-      visit "/books"
+      visit books_path
 
       expect(page.status_code).to eq(200)
-      expect(current_path).to eq("/books")
+      expect(current_path).to eq(books_path)
     end
 
     it "shows book information for all books" do
-      visit "/books"
+      visit books_path
 
       within "#book-#{@book_1.id}" do
         expect(page).to have_content(@book_1.title)
@@ -47,5 +47,6 @@ RSpec.describe "As a visitor", type: :feature do
         expect(page).to have_css("img[src*='#{@book_2.thumbnail}']")
       end
     end
+    # TO DO: add describe block / test that when a book has no author, "unknown" is displayed (similar to implementation in the books show page)
   end
 end
