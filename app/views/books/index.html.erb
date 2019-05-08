@@ -1,3 +1,4 @@
+<a href="<%= new_book_path %>">Add new book</a>
 <% @books.each do |book| %>
   <div id="book-<%= book.id %>">
     <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
