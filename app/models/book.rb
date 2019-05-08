@@ -10,4 +10,8 @@ class Book < ApplicationRecord
   def review_count
     reviews.count
   end
+
+  def author_count
+    authors.count
+  end
 end

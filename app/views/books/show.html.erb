@@ -2,6 +2,9 @@
   <img src="<%= @book.thumbnail %>" alt="Cover of <%= @book.title %>">
   <h3><%= @book.title %></h3>
   <p>Author(s):
+    <% if @book.author_count == 0 %>
+      unknown
+    <% end %>
     <% @book.authors.each do |author| %>
       <%= author.name %><%= ", " if author != @book.authors.last %>
     <% end %>
