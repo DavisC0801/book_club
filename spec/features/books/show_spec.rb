@@ -16,14 +16,14 @@ RSpec.describe "As a visitor", type: :feature do
     end
 
     it "loads the page" do
-      visit "/books/#{@book_1.id}"
+      visit book_path(@book_1)
 
       expect(page.status_code).to eq(200)
-      expect(current_path).to eq("/books/#{@book_1.id}")
+      expect(current_path).to eq(book_path(@book_1))
     end
 
     it "shows information for a particular book" do
-      visit "/books/#{@book_1.id}"
+      visit book_path(@book_1)
 
       within "#book-show" do
         expect(page).to have_content(@book_1.title)
@@ -65,9 +65,9 @@ RSpec.describe "As a visitor", type: :feature do
     it "redirects to the books index" do
       book_4 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
 
-      visit "/books/#{book_4.id + 5}"
+      visit book_path(book_4.id + 50)
 
-      expect(current_path).to eq("/books")
+      expect(current_path).to eq(books_path)
     end
   end
 
@@ -75,7 +75,7 @@ RSpec.describe "As a visitor", type: :feature do
     it "displays a message as such" do
       book_5 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
 
-      visit "/books/#{book_5.id}"
+      visit book_path(book_5)
 
       within "#review-list" do
         expect(page).to have_content("This book has no reviews yet.")
@@ -87,7 +87,7 @@ RSpec.describe "As a visitor", type: :feature do
     it "says author is unknown" do
       book_6 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
 
-      visit "/books/#{book_6.id}"
+      visit book_path(book_6)
 
       within "#book-show" do
         expect(page).to have_content("Author(s): unknown")
