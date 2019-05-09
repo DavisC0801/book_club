@@ -19,6 +19,7 @@ class ReviewsController < ApplicationController
       if review.save
         redirect_to book_path(params[:book_id])
       else
+        flash[:notice] = "Failed to add the review"
         redirect_back(fallback_location: book_path(params[:book_id]))
       end
     end
