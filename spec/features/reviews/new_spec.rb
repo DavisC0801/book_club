@@ -126,6 +126,31 @@ RSpec.describe "as a visitor" do
 
       expect(current_path).to eq(new_book_review_path(@book_1))
     end
+
+    it "doesn't allow for multiple reviews for the same user on one book" do
+      visit new_book_review_path(@book_1)
+
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: @rating
+      page.fill_in "Text", with: @text
+
+      click_button("Submit Review")
+
+      click_link("Write a review")
+
+      page.fill_in "Title", with: "I'm a new title"
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: @rating + 1
+      page.fill_in "Text", with: "new text goes here"
+
+      click_button("Submit Review")
+
+      new_review = Review.last
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+      expect(new_review.title).to eq(@title)
+    end
   end
 
   describe "when there is no book with the id matching the URI" do

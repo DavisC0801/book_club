@@ -11,10 +11,15 @@ class ReviewsController < ApplicationController
   def create
     user = User.find_or_create_by(username: params[:review][:user].titlecase)
     review = user.reviews.new(review_params)
-    if review.save && !user.id.nil?
-      redirect_to book_path(params[:book_id])
-    else
+    dupl_review = user.reviews.pluck(:book_id).include?(params[:book_id].to_i)
+    if dupl_review || user.id.nil?
       redirect_back(fallback_location: book_path(params[:book_id]))
+    else
+      if review.save
+        redirect_to book_path(params[:book_id])
+      else
+        redirect_back(fallback_location: book_path(params[:book_id]))
+      end
     end
   end
 
