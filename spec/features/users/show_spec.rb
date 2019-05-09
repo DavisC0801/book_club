@@ -66,7 +66,7 @@ RSpec.describe "as a visitor" do
         visit user_path(@user_2.id)
         
         within("#review-list") do
-          expect(page).to have_content("This user has written no reviews yet.")
+          expect(page).to have_content("This user has not written any reviews yet.")
         end
       end
     end
