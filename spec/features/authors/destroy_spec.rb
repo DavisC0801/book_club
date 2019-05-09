@@ -16,11 +16,24 @@ RSpec.describe "As a visitor", type: :feature do
       @review_3 = @book_1.reviews.create!(title: "It's OK.", rating: 3, text: "Meh", user: user_2)
     end
 
-    it "redirects to the book index page" do
+    it "destroys the author and redirects to the book index page" do
       visit author_path(@author_1)
       click_button("Delete Author")
 
       expect(current_path).to eq(books_path)
+      expect(Author.all).to include(@author_3)
+      expect(Author.all).to_not include(@author_1)
+      expect(page).to_not have_content(@author_1.name)
     end
+
+    # it "destroys the author's books" do
+    #   visit author_path(@author_1)
+    #   click_button("Delete Author")
+    # end
+
+    # it "destroys the author's books' reviews" do
+    #   visit author_path(@author_1)
+    #   click_button("Delete Author")
+    # end
   end
 end
