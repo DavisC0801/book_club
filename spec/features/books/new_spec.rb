@@ -111,7 +111,20 @@ RSpec.describe "As a visitor" do
     end
 
     it "sets a default image if none is given" do
+      visit new_book_path
 
+      fill_in :book_title, with: "the illiad"
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_authors, with: @authors
+
+      click_button "Create Book"
+
+      new_book = Book.last
+
+      within "#book-show" do
+        expect(page).to have_css("img[src*='https://nnp.wustl.edu/img/bookCovers/genericBookCover.jpg']")
+      end
     end
   end
 end
