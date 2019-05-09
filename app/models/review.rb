@@ -1,4 +1,6 @@
 class Review < ApplicationRecord
+  attr_accessor :username
+  
   belongs_to :book
   belongs_to :user
 

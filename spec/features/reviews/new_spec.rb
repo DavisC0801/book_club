@@ -15,7 +15,7 @@ RSpec.describe "as a visitor" do
 
     it "shows a form to create a new review for the book" do
       visit new_book_review_path(@book_1)
-      
+
       expect(page).to have_content("New Review for #{@book_1.title}")
 
       title = "Good Book"
@@ -23,8 +23,10 @@ RSpec.describe "as a visitor" do
       rating = 4
       text = "I liked this book"
 
+      # save_and_open_page
+
       page.fill_in "Title", with: title
-      page.fill_in "Username", with: username
+      page.fill_in "username", with: username
       page.fill_in "Rating", with: rating
       page.fill_in "Text", with: text
 
