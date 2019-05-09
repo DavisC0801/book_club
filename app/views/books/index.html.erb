@@ -2,10 +2,13 @@
 <% @books.each do |book| %>
   <div id="book-<%= book.id %>">
     <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
-    <h3><%= book.title %></h3>
+    <h3><a href="<%= book_path(book) %>"><%= book.title %></a></h3>
     <p>Author(s):
+      <% if book.author_count == 0 %>
+        unknown
+      <% end %>
       <% book.authors.each do |author| %>
-        <%= author.name %><%= ", " if author != book.authors.last %>
+        <a href="<%= author_path(author) %>"><%= author.name %></a><%= ", " if author != book.authors.last %>
       <% end %>
     </p>
     <p><%= book.page_count %> pages</p>
