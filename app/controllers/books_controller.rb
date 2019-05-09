@@ -16,6 +16,19 @@ class BooksController < ApplicationController
   end
 
   def create
-    
+    book = Book.create_with(
+      year_published: book_params[:year_published],
+      page_count: book_params[:page_count],
+      thumbnail: book_params[:thumbnail]
+    ).find_or_create_by(title: book_params[:title])
+    author = book.authors.find_or_create_by(name: book_params[:authors])
+
+    redirect_to book_path(book)
+  end
+
+  private
+
+  def book_params
+    params.require(:book).permit(:title, :year_published, :page_count, :thumbnail, :authors)
   end
 end

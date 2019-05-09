@@ -33,10 +33,11 @@ RSpec.describe "As a visitor" do
       click_button "Create Book"
 
       new_book = Book.last
+      expect(current_path).to eq(book_path(new_book))
 
       within "#book-show" do
         expect(page).to have_content(new_book.title)
-        expect(page).to have_content(@author.name)
+        expect(page).to have_content(@authors)
         expect(page).to have_content("#{@page_count} pages")
         expect(page).to have_content("Published in #{@year_published}")
         expect(page).to have_css("img[src*='#{@thumbnail}']")
