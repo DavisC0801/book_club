@@ -37,7 +37,7 @@ RSpec.describe "As a visitor" do
 
       within "#book-show" do
         expect(page).to have_content(@title)
-        expect(page).to have_content(@authors)
+        expect(page).to have_link(@authors)
         expect(page).to have_content("#{@page_count} pages")
         expect(page).to have_content("Published in #{@year_published}")
         expect(page).to have_css("img[src*='#{@thumbnail}']")
@@ -82,10 +82,26 @@ RSpec.describe "As a visitor" do
       #todo add flash message -
       #this is comparing that a new book is not created by the form.
       expect(book_1).to eq(Book.last)
+      save_and_open_page
     end
 
     it "can add multiple authors to a single book" do
+      visit new_book_path
 
+      fill_in :book_title, with: "the illiad"
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_thumbnail, with: @thumbnail
+      fill_in :book_authors, with: "Robert Fagels, Homer"
+
+      click_button "Create Book"
+
+      new_book = Book.last
+
+      within "#book-show" do
+        expect(page).to have_link("Robert Fagels")
+        expect(page).to have_link("Homer")
+      end
     end
 
     it "converts author names to title case" do
@@ -102,7 +118,7 @@ RSpec.describe "As a visitor" do
       new_book = Book.last
 
       within "#book-show" do
-        expect(page).to have_content(@authors)
+        expect(page).to have_link(@authors)
       end
     end
 
