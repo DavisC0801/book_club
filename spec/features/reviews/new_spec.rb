@@ -35,7 +35,7 @@ RSpec.describe "as a visitor" do
       new_review = Review.last
 
       expect(new_review.title).to eq(title)
-      expect(new_review.username).to eq(username)
+      expect(new_review.user.username).to eq(username)
       expect(new_review.rating).to eq(rating)
       expect(new_review.text).to eq(text)
     end
