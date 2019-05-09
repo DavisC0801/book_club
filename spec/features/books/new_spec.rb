@@ -8,7 +8,7 @@ RSpec.describe "As a visitor" do
       click_link("Add new book")
 
       expect(page.status_code).to eq(200)
-      expect(current_path).to eq(new_book)
+      expect(current_path).to eq(new_book_path)
     end
   end
 end
