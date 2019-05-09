@@ -1,0 +1,21 @@
+<div id="review-list">
+  <header>
+    <h2><%= @user.username %></h2>
+  </header>
+  <% @user.reviews.each do |review| %>
+    <div id="book-<%= review.book.id %>-info">
+      <img src="<%= review.book.thumbnail %>" alt="Cover of <%= review.book.title %>">
+      <br><h3><%= review.book.title %></h3><br>
+      <!-- possible format change for readability -->
+    </div>
+    <div id="review-<%= review.id %>-info">
+      <h3><%= review.title %></h3>
+      <p>Written on: <%= Date.strptime(review.updated_at.to_s)%></p>
+      <p>Rating: <%= review.rating %>/5</p>
+      <p><%= review.text %></p>
+    </div>
+  <% end %>
+  <% if @user.reviews_count == 0 %>
+    <p>This user has not written any reviews yet.</p>
+  <% end %>
+</div>
