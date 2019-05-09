@@ -9,7 +9,7 @@ RSpec.describe "as a visitor" do
       @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: @user_1)
     end
 
-    it "i am taken to a show page for that user." do
+    it "I am taken to a show page for that user." do
       visit book_path(@book_1)
 
       click_link(@user_1.username.to_s)
