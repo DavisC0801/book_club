@@ -20,8 +20,8 @@ class BooksController < ApplicationController
       year_published: book_params[:year_published],
       page_count: book_params[:page_count],
       thumbnail: book_params[:thumbnail]
-    ).find_or_create_by(title: book_params[:title])
-    author = book.authors.find_or_create_by(name: book_params[:authors])
+    ).find_or_create_by(title: book_params[:title].titlecase)
+    author = book.authors.find_or_create_by(name: book_params[:authors].titlecase)
 
     redirect_to book_path(book)
   end
