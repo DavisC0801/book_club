@@ -10,4 +10,8 @@ class BooksController < ApplicationController
       redirect_to "/books"
     end
   end
+
+  def new
+    @book = Book.new
+  end
 end
