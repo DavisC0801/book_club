@@ -36,7 +36,7 @@ RSpec.describe "As a visitor" do
       expect(current_path).to eq(book_path(new_book))
 
       within "#book-show" do
-        expect(page).to have_content(new_book.title)
+        expect(page).to have_content(@title)
         expect(page).to have_content(@authors)
         expect(page).to have_content("#{@page_count} pages")
         expect(page).to have_content("Published in #{@year_published}")
@@ -49,11 +49,39 @@ RSpec.describe "As a visitor" do
     end
 
     it "converts title to title case" do
+      visit new_book_path
 
+      fill_in :book_title, with: "the illiad"
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_thumbnail, with: @thumbnail
+      fill_in :book_authors, with: @authors
+
+      click_button "Create Book"
+
+      new_book = Book.last
+
+      within "#book-show" do
+        expect(page).to have_content(@title)
+      end
     end
 
     it "confirms book titles are unique" do
+      visit new_book_path
 
+      book_1 = Book.create(title: @title, page_count: 100, year_published: 800, thumbnail: @thumbnail)
+
+      fill_in :book_title, with: @title
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_thumbnail, with: @thumbnail
+      fill_in :book_authors, with: @authors
+
+      click_button "Create Book"
+
+      #todo add flash message -
+      #this is comparing that a new book is not created by the form.
+      expect(book_1).to eq(Book.last)
     end
 
     it "can add multiple authors to a single book" do
@@ -61,7 +89,21 @@ RSpec.describe "As a visitor" do
     end
 
     it "converts author names to title case" do
+      visit new_book_path
 
+      fill_in :book_title, with: "the illiad"
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_thumbnail, with: @thumbnail
+      fill_in :book_authors, with: @authors
+
+      click_button "Create Book"
+
+      new_book = Book.last
+
+      within "#book-show" do
+        expect(page).to have_content(@authors)
+      end
     end
 
     it "confirms author names are unique in the system" do
