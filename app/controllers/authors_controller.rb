@@ -3,7 +3,7 @@ class AuthorsController < ApplicationController
     if Author.pluck(:id).include?(params[:id].to_i)
       @author = Author.find(params[:id])
     else
-      redirect_to authors_path
+      redirect_to books_path
     end
   end
 

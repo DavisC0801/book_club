@@ -61,7 +61,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       visit author_path(author_4.id + 50)
 
-      expect(current_path).to eq(authors_path)
+      expect(current_path).to eq(books_path)
     end
   end
 
