@@ -15,7 +15,7 @@
       <p><%= review.text %></p>
     </div>
   <% end %>
-  <% if @user.reviews.count == 0 %>
-    <p>This user has written no reviews yet.</p>
+  <% if @user.reviews_count == 0 %>
+    <p>This user has not written any reviews yet.</p>
   <% end %>
 </div>
