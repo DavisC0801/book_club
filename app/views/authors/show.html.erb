@@ -1,5 +1,5 @@
+<h1><%= @author.name %></h1>
 <div id="book-list">
-  <h1><%= @author.name %></h1>
   <h2>Books:</h2>
   <% if @author.book_count == 0 %>
     <p>This author has no books in the database.</p>
@@ -7,12 +7,12 @@
   <% @author.books.each do |book|%>
     <div id="book-<%= book.id %>">
       <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
-      <h3><%= book.title %></h3>
+      <h3><a href="<%= book_path(book) %>"><%= book.title %></a></h3>
       <% if book.author_count > 1 %>
         <p>
           Co-authored by
           <% book.coauthors(@author).each_with_index do |coauthor, i| %>
-            <%= coauthor.name %><%= ", " if i < book.author_count - 2 %>
+            <a href="<%= author_path(coauthor) %>"><%= coauthor.name %></a><%= ", " if i < book.author_count - 2 %>
           <% end %>
         </p>
       <% end %>
