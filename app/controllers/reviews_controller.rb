@@ -13,6 +13,7 @@ class ReviewsController < ApplicationController
     review = user.reviews.new(review_params)
     dupl_review = user.reviews.pluck(:book_id).include?(params[:book_id].to_i)
     if dupl_review || user.id.nil?
+      flash[:notice] = "#{user.username} already submitted a review for this book" if dupl_review
       redirect_back(fallback_location: book_path(params[:book_id]))
     else
       if review.save

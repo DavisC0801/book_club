@@ -150,6 +150,7 @@ RSpec.describe "as a visitor" do
 
       expect(current_path).to eq(new_book_review_path(@book_1))
       expect(new_review.title).to eq(@title)
+      expect(page).to have_content("#{@username} already submitted a review for this book")
     end
   end
 
