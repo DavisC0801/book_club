@@ -12,6 +12,31 @@ RSpec.describe "as a visitor" do
       expect(page.status_code).to eq(200)
       expect(current_path).to eq(new_book_review_path(@book_1))
     end
+
+    it "shows a form to create a new review for the book" do
+      visit new_book_review_path(@book_1)
+      
+      expect(page).to have_content("New Review for #{@book_1.title}")
+
+      title = "Good Book"
+      username = "Bob"
+      rating = 4
+      text = "I liked this book"
+
+      page.fill_in "Title", with: title
+      page.fill_in "Username", with: username
+      page.fill_in "Rating", with: rating
+      page.fill_in "Text", with: text
+
+      click_button("Submit Review")
+
+      new_review = Review.last
+
+      expect(new_review.title).to eq(title)
+      expect(new_review.username).to eq(username)
+      expect(new_review.rating).to eq(rating)
+      expect(new_review.text).to eq(text)
+    end
   end
 
   describe "when there is no book with the id matching the URI" do
