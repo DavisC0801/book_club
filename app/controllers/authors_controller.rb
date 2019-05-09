@@ -9,4 +9,9 @@ class AuthorsController < ApplicationController
 
   def index
   end
+
+  def destroy
+    #code
+    redirect_to books_path
+  end
 end
