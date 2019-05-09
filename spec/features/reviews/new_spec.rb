@@ -23,8 +23,6 @@ RSpec.describe "as a visitor" do
       rating = 4
       text = "I liked this book"
 
-      # save_and_open_page
-
       page.fill_in "Title", with: title
       page.fill_in "User", with: username
       page.fill_in "Rating", with: rating
