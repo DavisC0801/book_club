@@ -62,7 +62,7 @@ RSpec.describe "as a visitor" do
     end
 
     describe "when I visit a user page that has no reviews" do
-      it "has no content" do
+      it "alerts the user that there are no reviews" do
         visit user_path(@user_2.id)
         
         within("#review-list") do
