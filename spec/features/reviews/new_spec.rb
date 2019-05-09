@@ -4,6 +4,11 @@ RSpec.describe "as a visitor" do
   describe "when there is a book with the id matching the URI" do
     before(:each) do
       @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+
+      @title = "Good Book"
+      @username = "Bob"
+      @rating = 4
+      @text = "I liked this book"
     end
 
     it "loads the page" do
@@ -18,27 +23,59 @@ RSpec.describe "as a visitor" do
 
       expect(page).to have_content("New Review for #{@book_1.title}")
 
-      title = "Good Book"
-      username = "Bob"
-      rating = 4
-      text = "I liked this book"
-
-      page.fill_in "Title", with: title
-      page.fill_in "User", with: username
-      page.fill_in "Rating", with: rating
-      page.fill_in "Text", with: text
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: @rating
+      page.fill_in "Text", with: @text
 
       click_button("Submit Review")
 
       new_review = Review.last
 
-      expect(new_review.title).to eq(title)
-      expect(new_review.user.username).to eq(username)
-      expect(new_review.rating).to eq(rating)
-      expect(new_review.text).to eq(text)
+      expect(new_review.title).to eq(@title)
+      expect(new_review.user.username).to eq(@username.titlecase)
+      expect(new_review.rating).to eq(@rating)
+      expect(new_review.text).to eq(@text)
 
       expect(current_path).to eq(book_path(@book_1))
-      expect(page).to have_content(text)
+      expect(page).to have_content(@text)
+    end
+
+    it "reloads the form if missing an input" do
+      visit new_book_review_path(@book_1)
+
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: @rating
+      page.fill_in "Text", with: @text
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+
+      page.fill_in "Title", with: @title
+      # no user input
+      page.fill_in "Rating", with: @rating
+      page.fill_in "Text", with: @text
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Text", with: @text
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: @rating
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
     end
   end
 

@@ -9,10 +9,13 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    user = User.find_or_create_by!(username: params[:review][:user].titlecase)
-    user.reviews.create(review_params)
-
-    redirect_to book_path(params[:book_id])
+    user = User.find_or_create_by(username: params[:review][:user].titlecase)
+    review = user.reviews.new(review_params)
+    if review.save && !user.id.nil?
+      redirect_to book_path(params[:book_id])
+    else
+      redirect_back(fallback_location: book_path(params[:book_id]))
+    end
   end
 
   private
