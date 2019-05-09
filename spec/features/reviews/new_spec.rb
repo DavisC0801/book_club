@@ -44,6 +44,7 @@ RSpec.describe "as a visitor" do
     it "reloads the form if missing an input" do
       visit new_book_review_path(@book_1)
 
+      # no title input
       page.fill_in "User", with: @username
       page.fill_in "Rating", with: @rating
       page.fill_in "Text", with: @text
@@ -63,6 +64,7 @@ RSpec.describe "as a visitor" do
 
       page.fill_in "Title", with: @title
       page.fill_in "User", with: @username
+      # no rating input
       page.fill_in "Text", with: @text
 
       click_button("Submit Review")
@@ -72,6 +74,53 @@ RSpec.describe "as a visitor" do
       page.fill_in "Title", with: @title
       page.fill_in "User", with: @username
       page.fill_in "Rating", with: @rating
+      # no text input
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+    end
+
+    it "reloads the form if invalid rating input" do
+      visit new_book_review_path(@book_1)
+
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: "zebra"
+      page.fill_in "Text", with: @text
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+
+      visit new_book_review_path(@book_1)
+
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: 1.5
+      page.fill_in "Text", with: @text
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+
+      visit new_book_review_path(@book_1)
+
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: 6
+      page.fill_in "Text", with: @text
+
+      click_button("Submit Review")
+
+      expect(current_path).to eq(new_book_review_path(@book_1))
+
+      visit new_book_review_path(@book_1)
+
+      page.fill_in "Title", with: @title
+      page.fill_in "User", with: @username
+      page.fill_in "Rating", with: 0
+      page.fill_in "Text", with: @text
 
       click_button("Submit Review")
 
