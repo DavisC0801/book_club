@@ -7,7 +7,7 @@ class BooksController < ApplicationController
     if Book.pluck(:id).include?(params[:id].to_i)
       @book = Book.find(params[:id])
     else
-      redirect_to "/books"
+      redirect_to books_path
     end
   end
 end

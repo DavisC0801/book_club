@@ -31,22 +31,35 @@ RSpec.describe "As a visitor", type: :feature do
       visit books_path
 
       within "#book-#{@book_1.id}" do
-        expect(page).to have_content(@book_1.title)
+        expect(page).to have_link(@book_1.title)
         expect(page).to have_content(@author_1.name + ", " + @author_2.name)
+        expect(page).to have_link(@author_1.name)
+        expect(page).to have_link(@author_2.name)
         expect(page).to have_content("#{@book_1.page_count} pages")
         expect(page).to have_content("Published in #{@book_1.year_published}")
         expect(page).to have_css("img[src*='#{@book_1.thumbnail}']")
       end
 
       within "#book-#{@book_2.id}" do
-        expect(page).to have_content(@book_2.title)
-        expect(page).to have_content(@author_3.name)
+        expect(page).to have_link(@book_2.title)
+        expect(page).to have_link(@author_3.name)
         expect(page).to_not have_content(",")
         expect(page).to have_content("#{@book_2.page_count} pages")
         expect(page).to have_content("Published in #{@book_2.year_published}")
         expect(page).to have_css("img[src*='#{@book_2.thumbnail}']")
       end
     end
-    # TO DO: add describe block / test that when a book has no author, "unknown" is displayed (similar to implementation in the books show page)
+
+    describe "when a book has no author" do
+      it "says author is unknown" do
+        book_3 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+
+        visit books_path
+
+        within "#book-#{book_3.id}" do
+          expect(page).to have_content("Author(s): unknown")
+        end
+      end
+    end
   end
 end
