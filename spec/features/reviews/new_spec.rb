@@ -36,6 +36,9 @@ RSpec.describe "as a visitor" do
       expect(new_review.user.username).to eq(username)
       expect(new_review.rating).to eq(rating)
       expect(new_review.text).to eq(text)
+
+      expect(current_path).to eq(book_path(@book_1))
+      expect(page).to have_content(text)
     end
   end
 
