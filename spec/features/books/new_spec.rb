@@ -11,4 +11,64 @@ RSpec.describe "As a visitor" do
       expect(current_path).to eq(new_book_path)
     end
   end
+
+  describe "when I am at the new book form" do
+    before :each do
+      @title = "The Illiad"
+      @year_published = 850
+      @page_count = 443
+      @thumbnail = "https://images.gr-assets.com/books/1388188509l/1371.jpg"
+      @authors = "Homer"
+    end
+
+    it "allows users to input information and create a book" do
+      visit new_book_path
+
+      fill_in :book_title, with: @title
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_thumbnail, with: @thumbnail
+      fill_in :book_authors, with: @authors
+
+      click_button "Create Book"
+
+      new_book = Book.last
+
+      within "#book-show" do
+        expect(page).to have_content(new_book.title)
+        expect(page).to have_content(@author.name)
+        expect(page).to have_content("#{@page_count} pages")
+        expect(page).to have_content("Published in #{@year_published}")
+        expect(page).to have_css("img[src*='#{@thumbnail}']")
+      end
+
+      within "#review-list" do
+        expect(page).to have_content("This book has no reviews yet.")
+      end
+    end
+
+    it "converts title to title case" do
+
+    end
+
+    it "confirms book titles are unique" do
+
+    end
+
+    it "can add multiple authors to a single book" do
+
+    end
+
+    it "converts author names to title case" do
+
+    end
+
+    it "confirms author names are unique in the system" do
+
+    end
+
+    it "sets a default image if none is given" do
+
+    end
+  end
 end
