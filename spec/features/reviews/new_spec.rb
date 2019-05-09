@@ -26,7 +26,7 @@ RSpec.describe "as a visitor" do
       # save_and_open_page
 
       page.fill_in "Title", with: title
-      page.fill_in "username", with: username
+      page.fill_in "User", with: username
       page.fill_in "Rating", with: rating
       page.fill_in "Text", with: text
 

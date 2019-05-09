@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    user = User.find_or_create_by(username: params[:username])
+    user = User.find_or_create_by!(username: params[:review][:user])
     user.reviews.create(review_params)
   end
 
