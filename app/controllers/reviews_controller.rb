@@ -9,8 +9,10 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    user = User.find_or_create_by!(username: params[:review][:user])
+    user = User.find_or_create_by!(username: params[:review][:user].titlecase)
     user.reviews.create(review_params)
+
+    redirect_to book_path(params[:book_id])
   end
 
   private
