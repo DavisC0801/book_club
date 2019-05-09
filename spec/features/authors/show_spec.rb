@@ -32,15 +32,17 @@ RSpec.describe "As a visitor", type: :feature do
         expect(page).to have_content("Books")
 
         within "#book-#{@book_1.id}" do
-          expect(page).to have_content(@book_1.title)
+          expect(page).to have_link(@book_1.title)
           expect(page).to have_content("Co-authored by #{@author_2.name}, #{@author_3.name}")
+          expect(page).to have_link(@author_2.name)
+          expect(page).to have_link(@author_3.name)
           expect(page).to have_content("#{@book_1.page_count} pages")
           expect(page).to have_content("Published in #{@book_1.year_published}")
           expect(page).to have_css("img[src*='#{@book_1.thumbnail}']")
         end
 
         within "#book-#{@book_3.id}" do
-          expect(page).to have_content(@book_3.title)
+          expect(page).to have_link(@book_3.title)
           expect(page).to have_content("#{@book_3.page_count} pages")
           expect(page).to have_content("Published in #{@book_3.year_published}")
           expect(page).to have_css("img[src*='#{@book_3.thumbnail}']")
