@@ -163,6 +163,7 @@ RSpec.describe "as a visitor" do
       visit new_book_review_path(@book_1.id + 50)
 
       expect(current_path).to eq(books_path)
+      expect(page).to have_content("There is no book with that ID")
     end
   end
 end

@@ -4,6 +4,7 @@ class ReviewsController < ApplicationController
       @book = Book.find(params[:book_id])
       @review = Review.new
     else
+      flash[:notice] = "There is no book with that ID"
       redirect_to books_path
     end
   end
