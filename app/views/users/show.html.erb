@@ -7,7 +7,6 @@
   </div>
   <div id="review-<%= review.id %>-info">
     <h3><%= review.title %></h3>
-    <p>Written by: <%= @user.username %></p>
     <p>Written on: <%= Date.strptime(review.updated_at.to_s)%></p>
     <p>Rating: <%= review.rating %>/5</p>
     <p><%= review.text %></p>
