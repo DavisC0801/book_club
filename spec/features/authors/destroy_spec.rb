@@ -7,7 +7,7 @@ RSpec.describe "As a visitor", type: :feature do
       @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 281, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
       @author_1 = @book_1.authors.create!(name: "Wilkie Collins")
       @author_2 = @book_1.authors.create!(name: "Charles Dickens")
-      @author_3 = @book_1.authors.create!(name: "Harper Lee")
+      @author_3 = @book_2.authors.create!(name: "Harper Lee")
       @book_3 = @author_1.books.create!(title: "The Moonstone", page_count: 528, year_published: 1868, thumbnail: "https://upload.wikimedia.org/wikipedia/commons/2/26/The_Moonstone_1st_ed.jpg")
       user_1 = User.create(username: "Chris Davis")
       user_2 = User.create(username: "Alexandra Chakeres")
@@ -21,15 +21,25 @@ RSpec.describe "As a visitor", type: :feature do
       click_button("Delete Author")
 
       expect(current_path).to eq(books_path)
+
       expect(Author.all).to include(@author_3)
       expect(Author.all).to_not include(@author_1)
+      expect(page).to have_content(@author_3.name)
       expect(page).to_not have_content(@author_1.name)
+      expect(page).to_not have_content(@author_2.name)
     end
 
-    # it "destroys the author's books" do
-    #   visit author_path(@author_1)
-    #   click_button("Delete Author")
-    # end
+    it "destroys the author's books" do
+      visit author_path(@author_1)
+      click_button("Delete Author")
+
+      expect(Book.all).to include(@book_2)
+      expect(Book.all).to_not include(@book_1)
+      expect(Book.all).to_not include(@book_3)
+      expect(page).to have_content(@book_2.title)
+      expect(page).to_not have_content(@book_1.title)
+      expect(page).to_not have_content(@book_3.title)
+    end
 
     # it "destroys the author's books' reviews" do
     #   visit author_path(@author_1)
