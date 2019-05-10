@@ -14,6 +14,8 @@
         <a href="<%= author_path(author) %>"><%= author.name %></a><%= ", " if author != book.authors.last %>
       <% end %>
     </p>
+    <p>Average Rating: <%= book.average_rating %></p>
+    <p><%= book.review_count %> reviews</p>
     <p><%= book.page_count %> pages</p>
     <p>Published in <%= book.year_published %></p>
   </div>
