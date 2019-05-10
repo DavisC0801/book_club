@@ -6,7 +6,7 @@
       unknown
     <% end %>
     <% @book.authors.each do |author| %>
-      <%= author.name %><%= ", " if author != @book.authors.last %>
+      <a href="<%= author_path(author) %>"><%= author.name %></a><%= ", " if author != @book.authors.last %>
     <% end %>
   </p>
   <p><%= @book.page_count %> pages</p>
@@ -26,4 +26,5 @@
       <p><%= review.text %></p>
     </div>
   <% end %>
+  <a href="<%= new_book_review_path(@book) %>">Write a review</a>
 </div>
