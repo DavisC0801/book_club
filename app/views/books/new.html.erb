@@ -4,19 +4,19 @@
     <p><%= flash[:notice] %></p>
   <% end %>
   <%= f.label :title%>
-  <%= f.text_field :title, type: :name, required: true %>
+  <%= f.text_field :title, type: :text, required: true %>
   <br>
   <%= f.label :year_published %>
-  <%= f.text_field :year_published, type: :number, min: -4000, max: 2019, required: true%>
+  <%= f.text_field :year_published, type: :number, min: -4000, max: Time.now.year, required: true%>
   <br>
   <%= f.label :page_count %>
   <%= f.text_field :page_count, type: :number, min: 1, required: true %>
   <br>
-  <%= f.label :thumbnail %>
+  <%= f.label "Thumbnail URL" %>
   <%= f.text_field :thumbnail, type: :url %>
   <br>
-  <%= f.label :authors %>
-  <%= f.text_field :authors, type: :name, required: true, value: ''%>
+  <%= f.label "Author(s) - Seperated by Commas" %>
+  <%= f.text_field :authors, type: :text, required: true, value: ''%>
   <br>
   <%= f.submit %>
 <% end %>

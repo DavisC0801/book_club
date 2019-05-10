@@ -8,7 +8,7 @@ RSpec.describe Book, type: :model do
     it {should validate_uniqueness_of :title}
     it {should validate_numericality_of(:year_published).only_integer}
     it {should validate_numericality_of(:year_published).is_greater_than_or_equal_to(-4000)}
-    it {should validate_numericality_of(:year_published).is_less_than_or_equal_to(2019)}
+    it {should validate_numericality_of(:year_published).is_less_than_or_equal_to(Time.now.year)}
     it {should validate_numericality_of(:page_count).only_integer}
     it {should validate_numericality_of(:page_count).is_greater_than_or_equal_to(1)}
   end

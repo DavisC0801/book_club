@@ -5,7 +5,7 @@ class Book < ApplicationRecord
 
   validates_presence_of :title, :page_count, :year_published
   validates_uniqueness_of :title
-  validates :year_published, numericality: { only_integer: true, greater_than_or_equal_to: -4000, less_than_or_equal_to: 2019 }
+  validates :year_published, numericality: { only_integer: true, greater_than_or_equal_to: -4000, less_than_or_equal_to: Time.now.year }
   validates :page_count, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
   def review_count
