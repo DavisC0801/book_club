@@ -41,14 +41,5 @@ RSpec.describe "As a visitor", type: :feature do
       expect(page).to_not have_content(@book_1.title)
       expect(page).to_not have_content(@book_3.title)
     end
-
-    it "destroys the author's books' reviews" do
-      visit author_path(@author_1)
-      click_button("Delete Author")
-
-      expect(Review.all).to include(@review_2)
-      expect(Review.all).to_not include(@review_1)
-      expect(Review.all).to_not include(@review_3)
-    end
   end
 end
