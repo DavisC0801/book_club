@@ -79,10 +79,8 @@ RSpec.describe "As a visitor" do
 
       click_button "Create Book"
 
-      expect(current_path).to eq(new_book_path)
       #this is comparing that a new book is not created by the form.
       expect(book_1).to eq(Book.last)
-      expect(page).to have_content("This book has already been created")
     end
 
     it "can add multiple authors to a single book" do
@@ -107,11 +105,11 @@ RSpec.describe "As a visitor" do
     it "converts author names to title case" do
       visit new_book_path
 
-      fill_in :book_title, with: "the illiad"
+      fill_in :book_title, with: @title
       fill_in :book_year_published, with: @year_published
       fill_in :book_page_count, with: @page_count
       fill_in :book_thumbnail, with: @thumbnail
-      fill_in :book_authors, with: @authors
+      fill_in :book_authors, with: "homer"
 
       click_button "Create Book"
 
@@ -162,6 +160,23 @@ RSpec.describe "As a visitor" do
       within "#book-show" do
         expect(page).to have_css("img[src*='https://nnp.wustl.edu/img/bookCovers/genericBookCover.jpg']")
       end
+    end
+
+    it "redirects back to the new book page with message if book is not created" do
+      book_1 = Book.create(title: @title, page_count: 100, year_published: 800, thumbnail: @thumbnail)
+
+      visit new_book_path
+
+      fill_in :book_title, with: @title
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_thumbnail, with: @thumbnail
+      fill_in :book_authors, with: @authors
+
+      click_button "Create Book"
+
+      expect(current_path).to eq(new_book_path)
+      expect(page).to have_content("This book has already been created")
     end
   end
 end
