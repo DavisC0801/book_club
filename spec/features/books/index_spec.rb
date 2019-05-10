@@ -52,7 +52,7 @@ RSpec.describe "As a visitor", type: :feature do
 
     describe "when a book has no author" do
       it "says author is unknown" do
-        book_3 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+        book_3 = Book.create!(title: "The Frozen Deep, A play", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
 
         visit books_path
 

@@ -5,6 +5,9 @@ RSpec.describe Book, type: :model do
     it {should validate_presence_of :title}
     it {should validate_presence_of :page_count}
     it {should validate_presence_of :year_published}
+    it {should validate_uniqueness_of :title}
+    it {should validate_numericality_of :year_published}
+    it {should validate_numericality_of :page_count}
   end
 
   describe "relationships" do
@@ -16,7 +19,7 @@ RSpec.describe Book, type: :model do
   describe "instance methods" do
     before(:each) do
       @book_1 = Book.create!(title: "I'm a Book", page_count: 573, year_published: 1965)
-      @book_2 = Book.create!(title: "I'm a Book", page_count: 573, year_published: 1965)
+      @book_2 = Book.create!(title: "I'm also a Book", page_count: 573, year_published: 1965)
       @author_1 = @book_1.authors.create!(name: "Bob")
       @author_2 = @book_1.authors.create!(name: "Sally")
       @author_3 = @book_1.authors.create!(name: "Jane")
