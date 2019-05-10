@@ -10,7 +10,7 @@ RSpec.describe "As a Visitor" do
     @review_3 = book_1.reviews.create!(title: "It's OK.", rating: 3, text: "Meh", user: @user_1)
   end
   describe "when I visit a user's show page" do
-    it "shows me a link to delete each review" do
+    it "shows me a button to delete each review" do
       visit user_path(@user_1)
 
       expect(current_path).to eq(user_path(@user_1))
