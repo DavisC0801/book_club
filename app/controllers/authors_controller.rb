@@ -10,4 +10,10 @@ class AuthorsController < ApplicationController
 
   def index
   end
+
+  def destroy
+    Author.destroy_author(params[:id].to_i)
+
+    redirect_to books_path
+  end
 end
