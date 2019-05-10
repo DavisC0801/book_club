@@ -18,6 +18,10 @@ RSpec.describe "As a visitor", type: :feature do
       @author_1 = @book_1.authors.create!(name: "Wilkie Collins")
       @author_2 = @book_1.authors.create!(name: "Charles Dickens")
       @author_3 = @book_2.authors.create!(name: "Harper Lee")
+      @user_1 = User.create!(username: "Chris Davis")
+      @user_2 = User.create!(username: "Alexandra Chakeres")
+      @review_1 = @book_1.reviews.create!(title: "Terrible", rating: 1, text: "This was the worst book I've ever read.", user: @user_1)
+      @review_2 = @book_1.reviews.create!(title: "Not good", rating: 2, text: "I wouldn't recommend it.", user: @user_2)
     end
 
     it "loads the page" do
@@ -59,6 +63,32 @@ RSpec.describe "As a visitor", type: :feature do
         within "#book-#{book_3.id}" do
           expect(page).to have_content("Author(s): unknown")
         end
+      end
+    end
+
+    it "shows each book's average rating" do
+      visit books_path
+
+      within "#book-#{@book_1.id}" do
+        avg_rating = (@review_1.rating + @review_2.rating) / 2.0
+        expect(page).to have_content("Average Rating: #{avg_rating.round(1)}")
+      end
+
+      within "#book-#{@book_2.id}" do
+        # Note: book 2 has no reviews
+        expect(page).to have_content("Average Rating: 0")
+      end
+    end
+
+    it "shows how many reviews each book has" do
+      visit books_path
+
+      within "#book-#{@book_1.id}" do
+        expect(page).to have_content("#{@book_1.reviews.count} reviews")
+      end
+
+      within "#book-#{@book_2.id}" do
+        expect(page).to have_content("0 reviews")
       end
     end
   end
