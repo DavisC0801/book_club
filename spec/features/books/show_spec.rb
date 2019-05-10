@@ -59,6 +59,16 @@ RSpec.describe "As a visitor", type: :feature do
 
       end
     end
+
+    describe "when I click a link to add a new review" do
+      it "goes to the new review page for that book" do
+        visit book_path(@book_1)
+
+        click_link("Write a review")
+
+        expect(current_path).to eq(new_book_review_path(@book_1))
+      end
+    end
   end
 
   describe "when there is no book with the id matching the URI" do
@@ -68,6 +78,7 @@ RSpec.describe "As a visitor", type: :feature do
       visit book_path(book_4.id + 50)
 
       expect(current_path).to eq(books_path)
+      expect(page).to have_content("There is no book with that ID")
     end
   end
 
