@@ -29,7 +29,7 @@ class BooksController < ApplicationController
       end
 
       redirect_to book_path(book)
-    elsif !book.save && 
+    elsif !book.save && !Book.pluck.include?(book_params[:title])
       flash[:notice] = "This book has already been created."
       redirect_back(fallback_location: new_book_path)
     else
