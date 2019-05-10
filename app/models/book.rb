@@ -16,6 +16,11 @@ class Book < ApplicationRecord
     authors.count
   end
 
+  def average_rating
+    calc = reviews.average(:rating)
+    calc ? calc : 0
+  end
+
   def coauthors(author)
     authors - [author]
   end
