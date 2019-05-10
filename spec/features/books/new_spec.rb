@@ -67,9 +67,9 @@ RSpec.describe "As a visitor" do
     end
 
     it "confirms book titles are unique" do
-      visit new_book_path
-
       book_1 = Book.create(title: @title, page_count: 100, year_published: 800, thumbnail: @thumbnail)
+
+      visit new_book_path
 
       fill_in :book_title, with: @title
       fill_in :book_year_published, with: @year_published
@@ -79,16 +79,16 @@ RSpec.describe "As a visitor" do
 
       click_button "Create Book"
 
-      #todo add flash message -
+      expect(current_path).to eq(new_book_path)
       #this is comparing that a new book is not created by the form.
       expect(book_1).to eq(Book.last)
-      save_and_open_page
+      expect(page).to have_content("This book has already been created")
     end
 
     it "can add multiple authors to a single book" do
       visit new_book_path
 
-      fill_in :book_title, with: "the illiad"
+      fill_in :book_title, with: @title
       fill_in :book_year_published, with: @year_published
       fill_in :book_page_count, with: @page_count
       fill_in :book_thumbnail, with: @thumbnail
@@ -123,7 +123,28 @@ RSpec.describe "As a visitor" do
     end
 
     it "confirms author names are unique in the system" do
+      visit new_book_path
 
+      homer = Author.create(name: "Homer")
+
+      book_1 = homer.books.create(title: "The Oddessy", page_count: 250, year_published: 700)
+
+      fill_in :book_title, with: @title
+      fill_in :book_year_published, with: @year_published
+      fill_in :book_page_count, with: @page_count
+      fill_in :book_thumbnail, with: @thumbnail
+      fill_in :book_authors, with: @authors
+
+      click_button "Create Book"
+
+      new_book = Book.last
+
+      expect(new_book.title).to eq(@title)
+      expect(new_book.page_count).to eq(@page_count)
+      expect(new_book.thumbnail).to eq(@thumbnail)
+      expect(new_book.year_published).to eq(@year_published)
+
+      expect(new_book.authors.first.id).to eq(homer.id)
     end
 
     it "sets a default image if none is given" do
