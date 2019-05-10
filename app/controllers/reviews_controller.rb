@@ -26,6 +26,11 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    Review.destroy(params[:review_id])
+    redirect_to user_path(params[:id])
+  end
+
   private
 
   def review_params
