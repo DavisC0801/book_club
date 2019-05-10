@@ -22,6 +22,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       expect(current_path).to eq(books_path)
 
+      expect(Author.all).to include(@author_2)
       expect(Author.all).to include(@author_3)
       expect(Author.all).to_not include(@author_1)
       expect(page).to have_content(@author_3.name)
