@@ -35,14 +35,14 @@ RSpec.describe Book, type: :model do
       end
 
       it "destroys the book" do
-        Book.destroy_book(@book_1.id)
+        Book.destroy(@book_1.id)
 
         expect(Book.all).to_not include(@book_1)
         expect(Book.all).to include(@book_2)
       end
 
       it "destroys the book's reviews" do
-        Book.destroy_book(@book_1.id)
+        Book.destroy(@book_1.id)
 
         expect(Review.all).to_not include(@review_1)
         expect(Review.all).to include(@review_2)
@@ -50,12 +50,12 @@ RSpec.describe Book, type: :model do
       end
 
       it "destroys appropriate BookAuthor entries" do
-        Book.destroy_book(@book_1.id)
+        Book.destroy(@book_1.id)
 
         all_book_ids_in_book_authors = BookAuthor.pluck(:book_id)
 
         expect(all_book_ids_in_book_authors).to_not include(@book_1.id)
-        expect(all_book_ids_in_book_authors).to include(@book_1.id)
+        expect(all_book_ids_in_book_authors).to include(@book_2.id)
       end
     end
   end
