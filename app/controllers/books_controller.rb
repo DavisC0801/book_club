@@ -6,9 +6,9 @@ class BooksController < ApplicationController
     when "rating-desc"
       @books = Book.sort_by_rating(false)
     when "pages-asc"
-      @books = Book.order(:page_count)
+      @books = Book.sort_by_page_count
     when "pages-desc"
-      @books = Book.order(page_count: :desc)
+      @books = Book.sort_by_page_count(false)
     when "reviews-asc"
       @books = Book.select('books.*, COUNT(reviews)')
                    .left_joins(:reviews)

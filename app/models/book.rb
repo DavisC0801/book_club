@@ -18,6 +18,14 @@ class Book < ApplicationRecord
      .order(order_arg)
   end
 
+  def self.sort_by_page_count(ascending = true)
+    if ascending
+      Book.order(:page_count)
+    else
+      Book.order(page_count: :desc)
+    end
+  end
+
   def review_count
     reviews.count
   end
