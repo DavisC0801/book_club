@@ -8,17 +8,23 @@ class BooksController < ApplicationController
        .order('AVG(reviews.rating) NULLS FIRST')
     when "rating-desc"
       @books = Book.select('books.*, AVG(reviews.rating)')
-       .left_joins(:reviews)
-       .group('books.id')
-       .order('AVG(reviews.rating) DESC NULLS LAST')
+                   .left_joins(:reviews)
+                   .group('books.id')
+                   .order('AVG(reviews.rating) DESC NULLS LAST')
     when "pages-asc"
       @books = Book.order(:page_count)
     when "pages-desc"
       @books = Book.order(page_count: :desc)
     when "reviews-asc"
-      @books = Book.all.sort_by(&:review_count)
+      @books = Book.select('books.*, COUNT(reviews)')
+                   .left_joins(:reviews)
+                   .group('books.id')
+                   .order('COUNT(reviews) NULLS FIRST')
     when "reviews-desc"
-      @books = Book.all.sort_by(&:review_count).reverse!
+      @books = Book.select('books.*, COUNT(reviews)')
+                   .left_joins(:reviews)
+                   .group('books.id')
+                   .order('COUNT(reviews) DESC NULLS LAST')
     else
       @books = Book.all
     end
