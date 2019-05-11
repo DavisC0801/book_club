@@ -2,15 +2,9 @@ class BooksController < ApplicationController
   def index
     case params[:sort]
     when "rating-asc"
-      @books = Book.select('books.*, AVG(reviews.rating)')
-       .left_joins(:reviews)
-       .group('books.id')
-       .order('AVG(reviews.rating) NULLS FIRST')
+      @books = Book.sort_by_rating
     when "rating-desc"
-      @books = Book.select('books.*, AVG(reviews.rating)')
-                   .left_joins(:reviews)
-                   .group('books.id')
-                   .order('AVG(reviews.rating) DESC NULLS LAST')
+      @books = Book.sort_by_rating(false)
     when "pages-asc"
       @books = Book.order(:page_count)
     when "pages-desc"
