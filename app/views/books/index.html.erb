@@ -15,7 +15,7 @@
       <p>Average Rating: <%= book.average_rating %></p>
       <p><%= book.review_count %> reviews</p>
       <p><%= book.page_count %> pages</p>
-      <p>Published in <%= book.year_published %></p>
+      <p>Published in <%= book.year_published.abs %><%= " BC" if book.year_published < 0 %></p>
     </div>
   <% end %>
 </div>
