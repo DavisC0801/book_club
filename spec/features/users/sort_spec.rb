@@ -7,8 +7,11 @@ RSpec.describe "As a Visitor" do
       book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 281, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
       book_3 = Book.create!(title: "The Illiad", page_count: 443, year_published: 850, thumbnail: "https://images.gr-assets.com/books/1388188509l/1371.jpg")
       @user_1 = User.create!(username: "Chris Davis")
+      travel 1.day
       @review_1 = book_1.reviews.create!(title: "Terrible", rating: 1, text: "This was the worst book I've ever read.", user: @user_1)
+      travel_back
       @review_2 = book_3.reviews.create!(title: "Great", rating: 5, text: "It's awesome!", user: @user_1)
+      travel 2.day
       @review_3 = book_2.reviews.create!(title: "Not good", rating: 2, text: "I wouldn't recommend it.", user: @user_1)
     end
 
@@ -19,26 +22,32 @@ RSpec.describe "As a Visitor" do
         expect(page).to have_link("Sort by Oldest")
         expect(page).to have_link("Sort by Newest")
       end
+
+      expect(current_page).to eq(user_path(@user_1))
     end
 
     it "sorts the page by newest" do
       visit user_path(@user_1)
 
-      click_link "sort by newest"
+      click_link "Sort by Newest"
 
       expect(page.all(".review-info")[0])
       expect(page.all(".review-info")[1])
       expect(page.all(".review-info")[2])
+
+      expect(current_path).to eq(user_path(@user_1))
     end
 
     it "sorts the page by oldest" do
       visit user_path(@user_1)
 
-      click_link "sort by oldest"
+      click_link "Sort by Oldest"
 
       expect(page.all(".review-info")[0])
       expect(page.all(".review-info")[1])
       expect(page.all(".review-info")[2])
+
+      expect(current_path).to eq(user_path(@user_1))
     end
   end
 end
