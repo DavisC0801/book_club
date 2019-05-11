@@ -4,7 +4,7 @@ RSpec.describe "As a visitor", type: :feature do
   describe "when I visit the book index page" do
     before(:each) do
       @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
-      @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 281, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
+      @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
       @book_3 = Book.create!(title: "50 Shades of Grey", page_count: 514, year_published: 2011, thumbnail: "https://upload.wikimedia.org/wikipedia/en/5/5e/50ShadesofGreyCoverArt.jpg")
       @author_1 = @book_1.authors.create!(name: "Wilkie Collins")
       @author_2 = @book_1.authors.create!(name: "Charles Dickens")
@@ -41,11 +41,27 @@ RSpec.describe "As a visitor", type: :feature do
     end
 
     it "should show a link to sort books by number of pages (ascending)" do
-      # TO DO
+      visit books_path
+
+      within "#sort-bar" do
+        click_link "number of pages (lowest to highest)"
+      end
+
+      expect(page.all(".book-info")[0]).to have_content(@book_1.title)
+      expect(page.all(".book-info")[1]).to have_content(@book_3.title)
+      expect(page.all(".book-info")[2]).to have_content(@book_2.title)
     end
 
     it "should show a link to sort books by number of pages (descending)" do
-      # TO DO
+      visit books_path
+
+      within "#sort-bar" do
+        click_link "number of pages (highest to lowest)"
+      end
+
+      expect(page.all(".book-info")[0]).to have_content(@book_2.title)
+      expect(page.all(".book-info")[1]).to have_content(@book_3.title)
+      expect(page.all(".book-info")[2]).to have_content(@book_1.title)
     end
 
     it "should show a link to sort books by number of reviews (ascending)" do
