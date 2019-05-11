@@ -51,15 +51,15 @@ RSpec.describe Book, type: :model do
     it "sorts books by number of pages (descending)" do
       expect(Book.sort_by_page_count(false)).to eq([@book_2, @book_3, @book_1])
     end
-    
-    # it "sorts books by number of reviews (ascending)" do
-    #   expect(Book.sort_by_review_count).to eq([@book_3, @book_1, @book_2])
-    #   expect(Book.sort_by_review_count(true)).to eq([@book_3, @book_1, @book_2])
-    # end
-    #
-    # it "sorts books by number of reviews (descending)" do
-    #   expect(Book.sort_by_review_count(false)).to eq([@book_2, @book_1, @book_3])
-    # end
+
+    it "sorts books by number of reviews (ascending)" do
+      expect(Book.sort_by_review_count).to eq([@book_3, @book_1, @book_2])
+      expect(Book.sort_by_review_count(true)).to eq([@book_3, @book_1, @book_2])
+    end
+
+    it "sorts books by number of reviews (descending)" do
+      expect(Book.sort_by_review_count(false)).to eq([@book_2, @book_1, @book_3])
+    end
   end
 
   describe "instance methods" do

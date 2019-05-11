@@ -13,9 +13,9 @@ class Book < ApplicationRecord
     ascending ? descending = '' : descending = ' DESC'
     order_arg = 'AVG(reviews.rating)' + descending + ' NULLS ' + first_or_last
     Book.select('books.*, AVG(reviews.rating)')
-     .left_joins(:reviews)
-     .group('books.id')
-     .order(order_arg)
+        .left_joins(:reviews)
+        .group('books.id')
+        .order(order_arg)
   end
 
   def self.sort_by_page_count(ascending = true)
@@ -24,6 +24,16 @@ class Book < ApplicationRecord
     else
       Book.order(page_count: :desc)
     end
+  end
+
+  def self.sort_by_review_count(ascending = true)
+    ascending ? first_or_last = 'FIRST' : first_or_last = 'LAST'
+    ascending ? descending = '' : descending = ' DESC'
+    order_arg = 'COUNT(reviews)' + descending + ' NULLS ' + first_or_last
+    Book.select('books.*, COUNT(reviews)')
+        .left_joins(:reviews)
+        .group('books.id')
+        .order(order_arg)
   end
 
   def review_count

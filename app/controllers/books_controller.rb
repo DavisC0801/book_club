@@ -10,15 +10,9 @@ class BooksController < ApplicationController
     when "pages-desc"
       @books = Book.sort_by_page_count(false)
     when "reviews-asc"
-      @books = Book.select('books.*, COUNT(reviews)')
-                   .left_joins(:reviews)
-                   .group('books.id')
-                   .order('COUNT(reviews) NULLS FIRST')
+      @books = Book.sort_by_review_count
     when "reviews-desc"
-      @books = Book.select('books.*, COUNT(reviews)')
-                   .left_joins(:reviews)
-                   .group('books.id')
-                   .order('COUNT(reviews) DESC NULLS LAST')
+      @books = Book.sort_by_review_count(false)
     else
       @books = Book.all
     end
