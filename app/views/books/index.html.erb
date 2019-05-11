@@ -7,6 +7,8 @@
   <a href="<%= books_path + "?sort=rating-desc" %>">average rating (highest to lowest)</a>
   <a href="<%= books_path + "?sort=pages-asc" %>">number of pages (lowest to highest)</a>
   <a href="<%= books_path + "?sort=pages-desc" %>">number of pages (highest to lowest)</a>
+  <a href="<%= books_path + "?sort=reviews-asc" %>">number of reviews (lowest to highest)</a>
+  <a href="<%= books_path + "?sort=reviews-desc" %>">number of reviews (highest to lowest)</a>
 </div>
 <a href="<%= new_book_path %>">Add new book</a>
 <% @books.each do |book| %>

@@ -9,6 +9,10 @@ class BooksController < ApplicationController
       @books = Book.order(:page_count)
     when "pages-desc"
       @books = Book.order(page_count: :desc)
+    when "reviews-asc"
+      @books = Book.all.sort_by(&:review_count)
+    when "reviews-desc"
+      @books = Book.all.sort_by(&:review_count).reverse!
     else
       @books = Book.all
     end
