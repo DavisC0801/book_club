@@ -15,6 +15,11 @@
         <%= link_to "Browse All Books", books_path %>
       </nav>
     <% end %>
+
+    <% if flash[:notice] %>
+      <p id="flash"><%= flash[:notice] %></p>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>

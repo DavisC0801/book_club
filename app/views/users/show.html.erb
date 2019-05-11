@@ -16,7 +16,6 @@
       <p><%= review.text %></p>
       <%= button_to('Delete Review', review_path(@user.id),
           method: "delete",
-          remote: true,
           params: { review_id: review.id },
           data: { confirm: 'Are you sure?', disable_with: 'loading...'})
       %>

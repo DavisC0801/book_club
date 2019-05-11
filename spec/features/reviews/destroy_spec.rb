@@ -39,6 +39,7 @@ RSpec.describe "As a Visitor" do
       end
 
       expect(current_path).to eq(user_path(@user_1))
+      expect(page).to have_content("The review was deleted")
     end
 
     it "does not show me the removed review" do
