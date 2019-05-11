@@ -11,7 +11,7 @@ RSpec.describe Author, type: :model do
   end
 
   describe "class methods" do
-    describe "when destoying an author" do
+    describe "when destroying an author" do
       before(:each) do
         @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
         @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 281, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
