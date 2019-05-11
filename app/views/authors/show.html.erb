@@ -6,13 +6,13 @@
   <% end %>
   <% @author.books.each do |book|%>
     <div id="book-<%= book.id %>">
-      <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
-      <h3><a href="<%= book_path(book) %>"><%= book.title %></a></h3>
+      <%= image_tag book.thumbnail, alt: "Cover of #{book.title}" %>
+      <h3><%= link_to book.title, book_path(book) %></h3>
       <% if book.author_count > 1 %>
         <p>
           Co-authored by
           <% book.coauthors(@author).each_with_index do |coauthor, i| %>
-            <a href="<%= author_path(coauthor) %>"><%= coauthor.name %></a><%= ", " if i < book.author_count - 2 %>
+            <%= link_to coauthor.name, author_path(coauthor) %><%= ", " if i < book.author_count - 2 %>
           <% end %>
         </p>
       <% end %>

@@ -1,11 +1,12 @@
 <div id="review-list">
   <header>
-    <h2><%= @user.username %></h2>
+    <h1><%= @user.username %></h1>
   </header>
+  <h2>Reviews:</h2>
   <% @user.reviews.each do |review| %>
     <div id="book-<%= review.book.id %>-info">
-      <img src="<%= review.book.thumbnail %>" alt="Cover of <%= review.book.title %>">
-      <br><h3><%= review.book.title %></h3><br>
+      <%= image_tag review.book.thumbnail, alt: "Cover of #{review.book.title}"  %>
+      <br><h3><%= link_to review.book.title, book_path(review.book) %></h3><br>
       <!-- possible format change for readability -->
     </div>
     <div id="review-<%= review.id %>-info">
@@ -16,7 +17,7 @@
       <%= button_to('Delete Review', review_path(@user.id),
           method: "delete",
           remote: true,
-          params: { review_id: review.id }, 
+          params: { review_id: review.id },
           data: { confirm: 'Are you sure?', disable_with: 'loading...'})
       %>
     </div>

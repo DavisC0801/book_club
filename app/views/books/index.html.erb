@@ -1,17 +1,17 @@
 <% if flash[:notice] %>
   <p><%= flash[:notice] %></p>
 <% end %>
-<a href="<%= new_book_path %>">Add new book</a>
+<%= link_to "Add new book", new_book_path %>
 <% @books.each do |book| %>
   <div id="book-<%= book.id %>">
-    <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
-    <h3><a href="<%= book_path(book) %>"><%= book.title %></a></h3>
+    <%= image_tag book.thumbnail, alt: "Cover of #{book.title}"  %>
+    <h3><%= link_to book.title, book_path(book) %></h3>
     <p>Author(s):
       <% if book.author_count == 0 %>
         unknown
       <% end %>
       <% book.authors.each do |author| %>
-        <a href="<%= author_path(author) %>"><%= author.name %></a><%= ", " if author != book.authors.last %>
+        <%= link_to author.name, author_path(author) %><%= ", " if author != book.authors.last %>
       <% end %>
     </p>
     <p>Average Rating: <%= book.average_rating %></p>
