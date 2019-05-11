@@ -91,5 +91,27 @@ RSpec.describe "As a visitor", type: :feature do
         expect(page).to have_content("0 reviews")
       end
     end
+
+    describe "navigation bar" do
+      it "has a link to go to the homepage" do
+        visit books_path
+
+        within "nav" do
+          click_link("Home")
+        end
+
+        expect(current_path).to eq(root_path)
+      end
+
+      it "has a link to go to the books index" do
+        visit books_path
+
+        within "nav" do
+          click_link("Browse All Books")
+        end
+
+        expect(current_path).to eq(books_path)
+      end
+    end
   end
 end
