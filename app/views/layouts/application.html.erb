@@ -9,10 +9,12 @@
   </head>
 
   <body>
-    <nav>
-      <%= link_to "Home", root_path %>
-      <%= link_to "Browse All Books", books_path %>
-    </nav>
+    <% if !@hide_nav %>
+      <nav>
+        <%= link_to "Home", root_path %>
+        <%= link_to "Browse All Books", books_path %>
+      </nav>
+    <% end %>
     <%= yield %>
   </body>
 </html>
