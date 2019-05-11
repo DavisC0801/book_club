@@ -87,5 +87,9 @@ RSpec.describe "As a visitor", type: :feature do
       expect(page.all(".book-info")[1]).to have_content(@book_1.title)
       expect(page.all(".book-info")[2]).to have_content(@book_3.title)
     end
+
+    it "doesn't change order when two values are equal" do
+      # TO DO
+    end
   end
 end
