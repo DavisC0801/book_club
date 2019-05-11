@@ -5,6 +5,10 @@ class BooksController < ApplicationController
       @books = Book.all.sort_by(&:average_rating)
     when "rating-desc"
       @books = Book.all.sort_by(&:average_rating).reverse!
+    when "pages-asc"
+      @books = Book.order(:page_count)
+    when "pages-desc"
+      @books = Book.order(page_count: :desc)
     else
       @books = Book.all
     end
