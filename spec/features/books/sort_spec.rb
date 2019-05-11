@@ -65,11 +65,27 @@ RSpec.describe "As a visitor", type: :feature do
     end
 
     it "should show a link to sort books by number of reviews (ascending)" do
-      # TO DO
+      visit books_path
+
+      within "#sort-bar" do
+        click_link "number of reviews (lowest to highest)"
+      end
+
+      expect(page.all(".book-info")[0]).to have_content(@book_3.title)
+      expect(page.all(".book-info")[1]).to have_content(@book_1.title)
+      expect(page.all(".book-info")[2]).to have_content(@book_2.title)
     end
 
     it "should show a link to sort books by number of reviews (descending)" do
-      # TO DO
+      visit books_path
+
+      within "#sort-bar" do
+        click_link "number of reviews (highest to lowest)"
+      end
+
+      expect(page.all(".book-info")[0]).to have_content(@book_2.title)
+      expect(page.all(".book-info")[1]).to have_content(@book_1.title)
+      expect(page.all(".book-info")[2]).to have_content(@book_3.title)
     end
   end
 end
