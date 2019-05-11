@@ -12,10 +12,10 @@
   <%= f.label :page_count %>
   <%= f.text_field :page_count, type: :number, min: 1, required: true %>
   <br>
-  <%= f.label "Thumbnail URL" %>
+  <%= f.label :thumbnail, 'Thumbnail URL' %>
   <%= f.text_field :thumbnail, type: :url %>
   <br>
-  <%= f.label "Author(s) - Seperated by Commas" %>
+  <%= f.label :authors, "Author(s) - separated by commas" %>
   <%= f.text_field :authors, type: :text, required: true, value: ''%>
   <br>
   <%= f.submit %>
