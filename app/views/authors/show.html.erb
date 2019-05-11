@@ -24,7 +24,6 @@
 <div id="delete">
   <%= button_to('Delete Author', author_path(@author),
           method: "delete",
-          remote: true,
           data: { confirm: 'Are you sure?', disable_with: 'loading...' })
   %>
 </div>
