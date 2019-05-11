@@ -1,6 +1,11 @@
 <% if flash[:notice] %>
   <p><%= flash[:notice] %></p>
 <% end %>
+<div id="sort-bar">
+  Sort by:
+  <a href="<%= books_path + "?sort=rating-asc" %>">average rating (lowest to highest)</a>
+  <a href="<%= books_path + "?sort=rating-desc" %>">average rating (highest to lowest)</a>
+</div>
 <a href="<%= new_book_path %>">Add new book</a>
 <% @books.each do |book| %>
   <div class="book-info" id="book-<%= book.id %>">
