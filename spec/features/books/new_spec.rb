@@ -35,9 +35,9 @@ RSpec.describe "As a visitor" do
       new_book = Book.last
       expect(current_path).to eq(book_path(new_book))
       expect(page).to have_content("#{@title} was added")
+      expect(page).to have_content(@title)
 
       within "#book-show" do
-        expect(page).to have_content(@title)
         expect(page).to have_link(@authors)
         expect(page).to have_content("#{@page_count} pages")
         expect(page).to have_content("Published in #{@year_published}")
@@ -60,11 +60,7 @@ RSpec.describe "As a visitor" do
 
       click_button "Create Book"
 
-      new_book = Book.last
-
-      within "#book-show" do
-        expect(page).to have_content(@title)
-      end
+      expect(page).to have_content(@title)
     end
 
     it "confirms book titles are unique" do

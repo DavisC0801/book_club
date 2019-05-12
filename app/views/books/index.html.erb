@@ -2,21 +2,30 @@
 <br><br>
 <div id="book-list">
   <% @books.each do |book| %>
-    <div id="book-<%= book.id %>">
-      <%= image_tag book.thumbnail, alt: "Cover of #{book.title}"  %>
-      <h3><%= link_to book.title, book_path(book) %></h3>
-      <p>Author(s):
-        <% if book.author_count == 0 %>
-        unknown
-        <% end %>
-        <% book.authors.each do |author| %>
-        <%= link_to author.name, author_path(author) %><%= ", " if author != book.authors.last %>
-        <% end %>
-      </p>
-      <p>Average Rating: <%= book.average_rating %></p>
-      <p><%= book.review_count %> reviews</p>
-      <p><%= book.page_count %> pages</p>
-      <p>Published in <%= book.year_published.abs %><%= " BC" if book.year_published < 0 %></p>
+    <div id="book-<%= book.id %>" class="card mb-3">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <%= image_tag book.thumbnail, alt: "Cover of #{book.title}", class: "card-img" %>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"><%= link_to book.title, book_path(book) %></h5>
+            <p class="card-text">
+              Author(s):
+              <% if book.author_count == 0 %>
+                unknown
+              <% end %>
+              <% book.authors.each do |author| %>
+              <%= link_to author.name, author_path(author) %><%= ", " if author != book.authors.last %>
+              <% end %>
+            </p>
+            <p class="card-text">Average Rating: <%= book.average_rating %></p>
+            <p class="card-text"><%= book.review_count %> reviews</p>
+            <p class="card-text"><%= book.page_count %> pages</p>
+            <p class="card-text">Published in <%= book.year_published.abs %><%= " BC" if book.year_published < 0 %></p>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
