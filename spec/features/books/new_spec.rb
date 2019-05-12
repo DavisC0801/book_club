@@ -34,6 +34,7 @@ RSpec.describe "As a visitor" do
 
       new_book = Book.last
       expect(current_path).to eq(book_path(new_book))
+      expect(page).to have_content("#{@title} was added")
 
       within "#book-show" do
         expect(page).to have_content(@title)

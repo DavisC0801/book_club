@@ -39,6 +39,7 @@ RSpec.describe "as a visitor" do
 
       expect(current_path).to eq(book_path(@book_1))
       expect(page).to have_content(@text)
+      expect(page).to have_content("The new review was added")
     end
 
     it "reloads the form if missing an input" do

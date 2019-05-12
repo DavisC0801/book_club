@@ -29,6 +29,7 @@ class BooksController < ApplicationController
         book.authors << Author.find_or_create_by(name: author_name.titlecase.strip)
       end
 
+      flash[:notice] = "#{book.title} was added"
       redirect_to book_path(book)
     elsif !book.save && !Book.pluck.include?(book_params[:title])
       flash[:notice] = "This book has already been created."

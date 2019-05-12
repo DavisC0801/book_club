@@ -18,6 +18,7 @@ class ReviewsController < ApplicationController
       redirect_back(fallback_location: book_path(params[:book_id]))
     else
       if review.save
+        flash[:notice] = "The new review was added"
         redirect_to book_path(params[:book_id])
       else
         flash[:notice] = "Failed to add the review"
@@ -28,6 +29,7 @@ class ReviewsController < ApplicationController
 
   def destroy
     Review.destroy(params[:review_id])
+    flash[:notice] = "The review was deleted"
     redirect_to user_path(params[:id])
   end
 

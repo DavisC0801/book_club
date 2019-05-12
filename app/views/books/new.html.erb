@@ -1,12 +1,9 @@
 <h1>New Book</h1>
 <%= form_for @book do |f| %>
-  <% if flash[:notice] %>
-    <p><%= flash[:notice] %></p>
-  <% end %>
   <%= f.label :title%>
   <%= f.text_field :title, type: :text, required: true %>
   <br>
-  <%= f.label :year_published %>
+  <%= f.label :year_published, "Year published - enter a negative number for years BC" %>
   <%= f.text_field :year_published, type: :number, min: -4000, max: Time.now.year, required: true%>
   <br>
   <%= f.label :page_count %>

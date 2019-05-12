@@ -1,16 +1,16 @@
 <div id="book-show">
-  <img src="<%= @book.thumbnail %>" alt="Cover of <%= @book.title %>">
+  <%= image_tag @book.thumbnail, alt: "Cover of #{@book.title}"  %>
   <h3><%= @book.title %></h3>
   <p>Author(s):
     <% if @book.author_count == 0 %>
       unknown
     <% end %>
     <% @book.authors.each do |author| %>
-      <a href="<%= author_path(author) %>"><%= author.name %></a><%= ", " if author != @book.authors.last %>
+      <%= link_to author.name, author_path(author) %><%= ", " if author != @book.authors.last %>
     <% end %>
   </p>
   <p><%= @book.page_count %> pages</p>
-  <p>Published in <%= @book.year_published %></p>
+  <p>Published in <%= @book.year_published.abs %><%= " BC" if @book.year_published < 0 %></p>
 </div>
 
 <div id="review-list">
@@ -21,12 +21,12 @@
   <% @book.reviews.each do |review|%>
     <div id="review-<%= review.id %>">
       <h3><%= review.title %></h3>
-      <p>Written by: <a href="<%= user_path(review.user) %>"><%= review.user.username %></a></p>
+      <p>Written by: <%= link_to review.user.username, user_path(review.user) %></p>
       <p>Rating: <%= review.rating %>/5</p>
       <p><%= review.text %></p>
     </div>
   <% end %>
-  <a href="<%= new_book_review_path(@book) %>">Write a review</a>
+  <%= link_to "Write a review", new_book_review_path(@book) %>
 </div>
 <div id="delete">
   <%= button_to('Delete Book', book_path(@book),
