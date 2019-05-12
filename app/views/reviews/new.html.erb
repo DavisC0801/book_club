@@ -1,16 +1,31 @@
-<h1>New Review for <%= @book.title %></h1>
+<h1>New Review for <%= link_to @book.title, book_path(@book) %></h1>
+<br>
 <%= form_for [@book, @review] do |f| %>
+  <% f.options[:html][:class] += ' form-group' %>
+
   <%= f.label :title %>
-  <%= f.text_field :title, required: true %>
+  <%= f.text_field :title, required: true, class: "form-control" %>
+  <small class="form-text text-muted">
+    Required. Enter a short title for your review.
+  </small>
   <br>
-  <%= f.label :user %>
-  <%= f.text_field :user, required: true %>
+  <%= f.label :user, "Username" %>
+  <%= f.text_field :user, required: true, class: "form-control" %>
+  <small class="form-text text-muted">
+    Required
+  </small>
   <br>
   <%= f.label :rating %>
-  <%= f.text_field :rating, type: :number, min: 1, max: 5, required: true %>
+  <%= f.text_field :rating, type: :number, min: 1, max: 5, required: true, class: "form-control number-input" %>
+  <small class="form-text text-muted">
+    Required. Enter a number 1-5.
+  </small>
   <br>
   <%= f.label :text %>
-  <%= f.text_area :text, required: true %>
+  <%= f.text_area :text, required: true, class: "form-control" %>
+  <small class="form-text text-muted">
+    Required
+  </small>
   <br>
-  <%= f.submit "Submit Review" %>
+  <%= f.submit "Submit Review", class: "btn btn-primary" %>
 <% end %>

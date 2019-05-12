@@ -1,4 +1,5 @@
-<%= link_to "Add new book", new_book_path %>
+<%= link_to "Add new book", new_book_path, { :class => "btn btn-primary"} %>
+<br><br>
 <div id="book-list">
   <% @books.each do |book| %>
     <div id="book-<%= book.id %>">

@@ -1,7 +1,5 @@
+<h1><%= @user.username %></h1>
 <div id="review-list">
-  <header>
-    <h1><%= @user.username %></h1>
-  </header>
   <h2>Reviews:</h2>
   <% @user.reviews.each do |review| %>
     <div id="book-<%= review.book.id %>-info">
@@ -17,7 +15,8 @@
       <%= button_to('Delete Review', review_path(@user.id),
           method: "delete",
           params: { review_id: review.id },
-          data: { confirm: 'Are you sure?', disable_with: 'loading...'})
+          data: { confirm: 'Are you sure?', disable_with: 'loading...'},
+          class: "btn btn-primary")
       %>
     </div>
   <% end %>

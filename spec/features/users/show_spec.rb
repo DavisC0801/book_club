@@ -35,7 +35,7 @@ RSpec.describe "as a visitor" do
     it "the user page shows all information for all reviews the user has written" do
       visit(user_path(@user_1))
 
-      within("header") do
+      within("h1") do
         expect(page).to have_content("#{@user_1.username}")
       end
 
