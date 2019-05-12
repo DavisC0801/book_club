@@ -28,3 +28,10 @@
   <% end %>
   <a href="<%= new_book_review_path(@book) %>">Write a review</a>
 </div>
+<div id="delete">
+  <%= button_to('Delete Book', book_path(@book),
+          method: "delete",
+          remote: true,
+          data: { confirm: 'Are you sure?', disable_with: 'loading...' })
+  %>
+</div>
