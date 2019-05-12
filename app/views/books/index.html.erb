@@ -1,6 +1,3 @@
-<% if flash[:notice] %>
-  <p><%= flash[:notice] %></p>
-<% end %>
 <div id="sort-bar">
   Sort by:
   <a href="<%= books_path + "?sort=rating-asc" %>">average rating (lowest to highest)</a>
@@ -10,22 +7,24 @@
   <a href="<%= books_path + "?sort=reviews-asc" %>">number of reviews (lowest to highest)</a>
   <a href="<%= books_path + "?sort=reviews-desc" %>">number of reviews (highest to lowest)</a>
 </div>
-<a href="<%= new_book_path %>">Add new book</a>
-<% @books.each do |book| %>
-  <div class="book-info" id="book-<%= book.id %>">
-    <img src="<%= book.thumbnail %>" alt="Cover of <%= book.title %>">
-    <h3><a href="<%= book_path(book) %>"><%= book.title %></a></h3>
-    <p>Author(s):
-      <% if book.author_count == 0 %>
-        unknown
-      <% end %>
-      <% book.authors.each do |author| %>
-        <a href="<%= author_path(author) %>"><%= author.name %></a><%= ", " if author != book.authors.last %>
-      <% end %>
-    </p>
-    <p>Average Rating: <%= book.average_rating %></p>
-    <p><%= book.review_count %> reviews</p>
-    <p><%= book.page_count %> pages</p>
-    <p>Published in <%= book.year_published %></p>
-  </div>
-<% end %>
+<%= link_to "Add new book", new_book_path %>
+<div id="book-list">
+  <% @books.each do |book| %>
+    <div class="book-info" id="book-<%= book.id %>">
+      <%= image_tag book.thumbnail, alt: "Cover of #{book.title}"  %>
+      <h3><%= link_to book.title, book_path(book) %></h3>
+      <p>Author(s):
+        <% if book.author_count == 0 %>
+          unknown
+        <% end %>
+        <% book.authors.each do |author| %>
+          <%= link_to author.name, author_path(author) %><%= ", " if author != book.authors.last %>
+        <% end %>
+      </p>
+      <p>Average Rating: <%= book.average_rating %></p>
+      <p><%= book.review_count %> reviews</p>
+      <p><%= book.page_count %> pages</p>
+      <p>Published in <%= book.year_published.abs %><%= " BC" if book.year_published < 0 %></p>
+    </div>
+  <% end %>
+</div>

@@ -105,4 +105,40 @@ RSpec.describe "As a visitor", type: :feature do
       end
     end
   end
+
+  describe "navigation bar" do
+    before(:each) do
+      @book_7 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+    end
+
+    it "has a link to go to the homepage" do
+      visit book_path(@book_7)
+
+      within "nav" do
+        click_link("Home")
+      end
+
+      expect(current_path).to eq(root_path)
+    end
+
+    it "has a link to go to the books index" do
+      visit book_path(@book_7)
+
+      within "nav" do
+        click_link("Browse All Books")
+      end
+
+      expect(current_path).to eq(books_path)
+    end
+  end
+
+  describe "when the year_published is negative" do
+    it "shows BC" do
+      book_8 = Book.create!(title: "The Republic", page_count: 416, year_published: -380, thumbnail: "https://images.gr-assets.com/books/1386925655l/30289.jpg")
+
+      visit book_path(book_8)
+      
+      expect(page).to have_content("Published in #{-book_8.year_published} BC")
+    end
+  end
 end
