@@ -87,6 +87,20 @@ RSpec.describe "As a visitor", type: :feature do
       expect(page.all(".book-info")[1]).to have_content(@book_1.title)
       expect(page.all(".book-info")[2]).to have_content(@book_3.title)
     end
+
+    it "sorting by anything else does nothing" do
+      visit "#{books_path}?sort=title-asc"
+
+      expect(page.all(".book-info")[0]).to have_content(@book_1.title)
+      expect(page.all(".book-info")[1]).to have_content(@book_2.title)
+      expect(page.all(".book-info")[2]).to have_content(@book_3.title)
+
+      visit "#{books_path}?sort=zebra"
+
+      expect(page.all(".book-info")[0]).to have_content(@book_1.title)
+      expect(page.all(".book-info")[1]).to have_content(@book_2.title)
+      expect(page.all(".book-info")[2]).to have_content(@book_3.title)
+    end
   end
   describe "edge cases" do
     it "doesn't error out when there duplicate values to sort" do
