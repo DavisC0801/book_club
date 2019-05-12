@@ -1,6 +1,10 @@
 <div id="review-list">
   <header>
     <h2><%= @user.username %></h2>
+    <div id="sort-bar">
+      <a href="<%= user_path(@user) + "?sort=date-asc" %>">Sort by Newest</a>
+      <a href="<%= user_path(@user) + "?sort=date-desc" %>">Sort by Oldest</a>
+    </div>
   </header>
   <% @user.reviews.each do |review| %>
     <div id="book-<%= review.book.id %>-info">
@@ -8,7 +12,7 @@
       <br><h3><%= review.book.title %></h3><br>
       <!-- possible format change for readability -->
     </div>
-    <div id="review-<%= review.id %>-info">
+    <div class="review-info" id="review-<%= review.id %>-info">
       <h3><%= review.title %></h3>
       <p>Written on: <%= Date.strptime(review.updated_at.to_s)%></p>
       <p>Rating: <%= review.rating %>/5</p>
@@ -16,7 +20,7 @@
       <%= button_to('Delete Review', review_path(@user.id),
           method: "delete",
           remote: true,
-          params: { review_id: review.id }, 
+          params: { review_id: review.id },
           data: { confirm: 'Are you sure?', disable_with: 'loading...'})
       %>
     </div>
