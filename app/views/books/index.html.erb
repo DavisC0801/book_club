@@ -1,11 +1,11 @@
 <div id="sort-bar">
   Sort by:
-  <a href="<%= books_path + "?sort=rating-asc" %>">average rating (lowest to highest)</a>
-  <a href="<%= books_path + "?sort=rating-desc" %>">average rating (highest to lowest)</a>
-  <a href="<%= books_path + "?sort=pages-asc" %>">number of pages (lowest to highest)</a>
-  <a href="<%= books_path + "?sort=pages-desc" %>">number of pages (highest to lowest)</a>
-  <a href="<%= books_path + "?sort=reviews-asc" %>">number of reviews (lowest to highest)</a>
-  <a href="<%= books_path + "?sort=reviews-desc" %>">number of reviews (highest to lowest)</a>
+  <%= link_to "average rating (lowest to highest)", "#{books_path}?sort=rating-asc" %>
+  <%= link_to "average rating (highest to lowest)", "#{books_path}?sort=rating-desc" %>
+  <%= link_to "number of pages (lowest to highest)", "#{books_path}?sort=pages-asc" %>
+  <%= link_to "number of pages (highest to lowest)", "#{books_path}?sort=pages-desc" %>
+  <%= link_to "number of reviews (lowest to highest)", "#{books_path}?sort=reviews-asc" %>
+  <%= link_to "number of reviews (highest to lowest)", "#{books_path}?sort=reviews-desc" %>
 </div>
 <%= link_to "Add new book", new_book_path %>
 <div id="book-list">
