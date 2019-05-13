@@ -24,6 +24,11 @@
               </p>
             <% end %>
             <p class="card-text">Average Rating: <%= book.average_rating %></p>
+            <!-- delete line above after rewriting tests to use fancy-rating below instead -->
+            <div class="fancy-rating">
+              <div class="star-filling-bar" style="width:<%= (book.average_rating / 5.0 * 100).round(0).to_i %>%;"></div>
+              <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+            </div>
             <p class="card-text"><%= book.review_count %> reviews</p>
             <p class="card-text"><%= book.page_count %> pages</p>
             <p class="card-text">Published in <%= book.year_published.abs %><%= " BC" if book.year_published < 0 %></p>
