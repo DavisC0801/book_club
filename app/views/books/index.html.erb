@@ -15,7 +15,7 @@
       <% @highest_rated_books.each do |book| %>
         <li>
           <%= link_to book.title, book_path(book) %>
-          Average rating: <%= book.average_rating %>
+          Average rating: <%= book.average_rating.round(1) %>/5
           <!-- delete line above after rewriting tests to use fancy-rating below instead -->
           <div class="fancy-rating">
             <div class="star-filling-bar" style="width:<%= (book.average_rating / 5.0 * 100).round(0).to_i %>%;"></div>
@@ -31,7 +31,7 @@
       <% @lowest_rated_books.each do |book| %>
         <li>
           <%= link_to book.title, book_path(book) %>
-          Average rating: <%= book.average_rating %>
+          Average rating: <%= book.average_rating.round(1) %>/5
           <!-- delete line above after rewriting tests to use fancy-rating below instead -->
           <div class="fancy-rating">
             <div class="star-filling-bar" style="width:<%= (book.average_rating / 5.0 * 100).round(0).to_i %>%;"></div>
