@@ -37,8 +37,7 @@
 <div id="delete">
   <%= button_to('Delete Book', book_path(@book),
           method: "delete",
-          remote: true,
           data: { confirm: 'Are you sure?', disable_with: 'loading...' },
-          class: "btn btn-primary")
+          class: "btn btn-primary"))
   %>
 </div>

@@ -1,8 +1,17 @@
+<div id="sort-bar">
+  Sort by:
+  <%= link_to "average rating (lowest to highest)", "#{books_path}?sort=rating-asc" %>
+  <%= link_to "average rating (highest to lowest)", "#{books_path}?sort=rating-desc" %>
+  <%= link_to "number of pages (lowest to highest)", "#{books_path}?sort=pages-asc" %>
+  <%= link_to "number of pages (highest to lowest)", "#{books_path}?sort=pages-desc" %>
+  <%= link_to "number of reviews (lowest to highest)", "#{books_path}?sort=reviews-asc" %>
+  <%= link_to "number of reviews (highest to lowest)", "#{books_path}?sort=reviews-desc" %>
+</div>
 <%= link_to "Add new book", new_book_path, { :class => "btn btn-primary"} %>
 <br><br>
 <div id="book-list">
   <% @books.each do |book| %>
-    <div id="book-<%= book.id %>" class="card mb-3">
+    <div id="book-<%= book.id %>" class="card mb-3 book-info">
       <div class="row no-gutters">
         <div class="col-md-3">
           <%= image_tag book.thumbnail, alt: "Cover of #{book.title}", class: "card-img" %>

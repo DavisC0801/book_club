@@ -8,6 +8,34 @@ class Book < ApplicationRecord
   validates :year_published, numericality: { only_integer: true, greater_than_or_equal_to: -4000, less_than_or_equal_to: Time.now.year }
   validates :page_count, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
 
+  def self.sort_by_rating(ascending = true)
+    ascending ? first_or_last = 'FIRST' : first_or_last = 'LAST'
+    ascending ? descending = '' : descending = ' DESC'
+    order_arg = 'AVG(reviews.rating)' + descending + ' NULLS ' + first_or_last
+    Book.select('books.*, AVG(reviews.rating)')
+        .left_joins(:reviews)
+        .group('books.id')
+        .order(order_arg)
+  end
+
+  def self.sort_by_page_count(ascending = true)
+    if ascending
+      Book.order(:page_count)
+    else
+      Book.order(page_count: :desc)
+    end
+  end
+
+  def self.sort_by_review_count(ascending = true)
+    ascending ? first_or_last = 'FIRST' : first_or_last = 'LAST'
+    ascending ? descending = '' : descending = ' DESC'
+    order_arg = 'COUNT(reviews)' + descending + ' NULLS ' + first_or_last
+    Book.select('books.*, COUNT(reviews)')
+        .left_joins(:reviews)
+        .group('books.id')
+        .order(order_arg)
+  end
+
   def review_count
     reviews.count
   end

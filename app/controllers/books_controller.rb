@@ -1,6 +1,21 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.all
+    case params[:sort]
+    when "rating-asc"
+      @books = Book.sort_by_rating
+    when "rating-desc"
+      @books = Book.sort_by_rating(false)
+    when "pages-asc"
+      @books = Book.sort_by_page_count
+    when "pages-desc"
+      @books = Book.sort_by_page_count(false)
+    when "reviews-asc"
+      @books = Book.sort_by_review_count
+    when "reviews-desc"
+      @books = Book.sort_by_review_count(false)
+    else
+      @books = Book.all
+    end
   end
 
   def show
