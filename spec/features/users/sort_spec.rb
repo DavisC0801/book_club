@@ -26,43 +26,37 @@ RSpec.describe "As a Visitor" do
       expect(current_path).to eq(user_path(@user_1))
     end
 
-    it "sorts the page by newest" do
-      visit user_path(@user_1)
-
-      click_link "Sort by Newest"
-
-      expect(page.all(".review-info")[0]).to have_content(@review_2.title)
-      expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_2.rating}/5")
-      expect(page.all(".review-info")[0]).to have_content("Written by: #{@review_2.user.username}")
-      expect(page.all(".review-info")[0]).to have_content(@review_2.text)
-      expect(page.all(".review-info")[1]).to have_content(@review_1.title)
-      expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_1.rating}/5")
-      expect(page.all(".review-info")[1]).to have_content("Written by: #{@review_1.user.username}")
-      expect(page.all(".review-info")[1]).to have_content(@review_1.text)
-      expect(page.all(".review-info")[2]).to have_content(@review_3.title)
-      expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_3.rating}/5")
-      expect(page.all(".review-info")[2]).to have_content("Written by: #{@review_3.user.username}")
-      expect(page.all(".review-info")[2]).to have_content(@review_3.text)
-
-      expect(current_path).to eq(user_path(@user_1))
-    end
-
     it "sorts the page by oldest" do
       visit user_path(@user_1)
 
       click_link "Sort by Oldest"
 
+      expect(page.all(".review-info")[0]).to have_content(@review_2.title)
+      expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_2.rating}/5")
+      expect(page.all(".review-info")[0]).to have_content(@review_2.text)
+      expect(page.all(".review-info")[1]).to have_content(@review_1.title)
+      expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_1.rating}/5")
+      expect(page.all(".review-info")[1]).to have_content(@review_1.text)
+      expect(page.all(".review-info")[2]).to have_content(@review_3.title)
+      expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_3.rating}/5")
+      expect(page.all(".review-info")[2]).to have_content(@review_3.text)
+
+      expect(current_path).to eq(user_path(@user_1))
+    end
+
+    it "sorts the page by newest" do
+      visit user_path(@user_1)
+
+      click_link "Sort by Newest"
+
       expect(page.all(".review-info")[0]).to have_content(@review_3.title)
       expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_3.rating}/5")
-      expect(page.all(".review-info")[0]).to have_content("Written by: #{@review_3.user.username}")
       expect(page.all(".review-info")[0]).to have_content(@review_3.text)
       expect(page.all(".review-info")[1]).to have_content(@review_1.title)
       expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_1.rating}/5")
-      expect(page.all(".review-info")[1]).to have_content("Written by: #{@review_1.user.username}")
       expect(page.all(".review-info")[1]).to have_content(@review_1.text)
       expect(page.all(".review-info")[2]).to have_content(@review_2.title)
       expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_2.rating}/5")
-      expect(page.all(".review-info")[2]).to have_content("Written by: #{@review_2.user.username}")
       expect(page.all(".review-info")[2]).to have_content(@review_2.text)
 
       expect(current_path).to eq(user_path(@user_1))
@@ -73,22 +67,13 @@ RSpec.describe "As a Visitor" do
 
       expect(page.all(".review-info")[0]).to have_content(@review_1.title)
       expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_1.rating}/5")
-      expect(page.all(".review-info")[0]).to have_content("Written by: #{@review_1.user.username}")
       expect(page.all(".review-info")[0]).to have_content(@review_1.text)
       expect(page.all(".review-info")[1]).to have_content(@review_2.title)
       expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_2.rating}/5")
-      expect(page.all(".review-info")[1]).to have_content("Written by: #{@review_2.user.username}")
       expect(page.all(".review-info")[1]).to have_content(@review_2.text)
       expect(page.all(".review-info")[2]).to have_content(@review_3.title)
       expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_3.rating}/5")
-      expect(page.all(".review-info")[2]).to have_content("Written by: #{@review_3.user.username}")
       expect(page.all(".review-info")[2]).to have_content(@review_3.text)
     end
   end
 end
-
-# As a Visitor,
-# When I visit a user's show page
-# I should also see links to sort reviews in the following ways:
-# - sort reviews newest first (descending chronological order)
-# - sort reviews oldest first (ascending chronological order)
