@@ -33,15 +33,12 @@ RSpec.describe "As a Visitor" do
 
       expect(page.all(".review-info")[0]).to have_content(@review_2.title)
       expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_2.rating}/5")
-      expect(page.all(".review-info")[0]).to have_content("Written by: #{@review_2.user.username}")
       expect(page.all(".review-info")[0]).to have_content(@review_2.text)
       expect(page.all(".review-info")[1]).to have_content(@review_1.title)
       expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_1.rating}/5")
-      expect(page.all(".review-info")[1]).to have_content("Written by: #{@review_1.user.username}")
       expect(page.all(".review-info")[1]).to have_content(@review_1.text)
       expect(page.all(".review-info")[2]).to have_content(@review_3.title)
       expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_3.rating}/5")
-      expect(page.all(".review-info")[2]).to have_content("Written by: #{@review_3.user.username}")
       expect(page.all(".review-info")[2]).to have_content(@review_3.text)
 
       expect(current_path).to eq(user_path(@user_1))
@@ -54,15 +51,12 @@ RSpec.describe "As a Visitor" do
 
       expect(page.all(".review-info")[0]).to have_content(@review_3.title)
       expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_3.rating}/5")
-      expect(page.all(".review-info")[0]).to have_content("Written by: #{@review_3.user.username}")
       expect(page.all(".review-info")[0]).to have_content(@review_3.text)
       expect(page.all(".review-info")[1]).to have_content(@review_1.title)
       expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_1.rating}/5")
-      expect(page.all(".review-info")[1]).to have_content("Written by: #{@review_1.user.username}")
       expect(page.all(".review-info")[1]).to have_content(@review_1.text)
       expect(page.all(".review-info")[2]).to have_content(@review_2.title)
       expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_2.rating}/5")
-      expect(page.all(".review-info")[2]).to have_content("Written by: #{@review_2.user.username}")
       expect(page.all(".review-info")[2]).to have_content(@review_2.text)
 
       expect(current_path).to eq(user_path(@user_1))
@@ -73,15 +67,12 @@ RSpec.describe "As a Visitor" do
 
       expect(page.all(".review-info")[0]).to have_content(@review_1.title)
       expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_1.rating}/5")
-      expect(page.all(".review-info")[0]).to have_content("Written by: #{@review_1.user.username}")
       expect(page.all(".review-info")[0]).to have_content(@review_1.text)
       expect(page.all(".review-info")[1]).to have_content(@review_2.title)
       expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_2.rating}/5")
-      expect(page.all(".review-info")[1]).to have_content("Written by: #{@review_2.user.username}")
       expect(page.all(".review-info")[1]).to have_content(@review_2.text)
       expect(page.all(".review-info")[2]).to have_content(@review_3.title)
       expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_3.rating}/5")
-      expect(page.all(".review-info")[2]).to have_content("Written by: #{@review_3.user.username}")
       expect(page.all(".review-info")[2]).to have_content(@review_3.text)
     end
   end
