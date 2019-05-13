@@ -102,7 +102,8 @@ RSpec.describe "As a visitor", type: :feature do
       expect(page.all(".book-info")[2]).to have_content(@book_3.title)
     end
   end
-  describe "edge cases" do
+
+  describe "sorting edge cases" do
     it "doesn't error out when there duplicate values to sort" do
       @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
       @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
