@@ -1,15 +1,18 @@
 <div id="review-list">
   <header>
     <h1><%= @user.username %></h1>
+    <div id="sort-bar">
+      <a href="<%= user_path(@user) + "?sort=date-desc" %>">Sort by Newest</a>
+      <a href="<%= user_path(@user) + "?sort=date-asc" %>">Sort by Oldest</a>
+    </div>
   </header>
   <h2>Reviews:</h2>
-  <% @user.reviews.each do |review| %>
+  <% @user.sorted_reviews(@sorted_param).each do |review| %>
     <div id="book-<%= review.book.id %>-info">
       <%= image_tag review.book.thumbnail, alt: "Cover of #{review.book.title}"  %>
       <br><h3><%= link_to review.book.title, book_path(review.book) %></h3><br>
-      <!-- possible format change for readability -->
     </div>
-    <div id="review-<%= review.id %>-info">
+    <div class="review-info" id="review-<%= review.id %>-info">
       <h3><%= review.title %></h3>
       <p>Written on: <%= Date.strptime(review.updated_at.to_s)%></p>
       <p>Rating: <%= review.rating %>/5</p>
