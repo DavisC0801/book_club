@@ -7,6 +7,24 @@
   <%= link_to "number of reviews (lowest to highest)", "#{books_path}?sort=reviews-asc" %>
   <%= link_to "number of reviews (highest to lowest)", "#{books_path}?sort=reviews-desc" %>
 </div>
+<div id="statistics">
+  <h3>Statistics</h3>
+  <div id="highest-rated" class="stats">
+    <ol>
+      <% @highest_rated_books.each do |book| %>
+        <li>
+          <%= link_to book.title, book_path(book) %>
+          Average rating: <%= book.average_rating %>
+          <!-- delete line above after rewriting tests to use fancy-rating below instead -->
+          <div class="fancy-rating">
+            <div class="star-filling-bar" style="width:<%= (book.average_rating / 5.0 * 100).round(0).to_i %>%;"></div>
+            <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</div>
 <%= link_to "Add new book", new_book_path, { :class => "btn btn-primary"} %>
 <br><br>
 <div id="book-list">
