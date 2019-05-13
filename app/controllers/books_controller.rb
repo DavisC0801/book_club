@@ -1,6 +1,21 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.all
+    case params[:sort]
+    when "rating-asc"
+      @books = Book.sort_by_rating
+    when "rating-desc"
+      @books = Book.sort_by_rating(false)
+    when "pages-asc"
+      @books = Book.sort_by_page_count
+    when "pages-desc"
+      @books = Book.sort_by_page_count(false)
+    when "reviews-asc"
+      @books = Book.sort_by_review_count
+    when "reviews-desc"
+      @books = Book.sort_by_review_count(false)
+    else
+      @books = Book.all
+    end
   end
 
   def show
@@ -29,6 +44,7 @@ class BooksController < ApplicationController
         book.authors << Author.find_or_create_by(name: author_name.titlecase.strip)
       end
 
+      flash[:notice] = "#{book.title} was added"
       redirect_to book_path(book)
     elsif !book.save && !Book.pluck.include?(book_params[:title])
       flash[:notice] = "This book has already been created."
@@ -37,6 +53,12 @@ class BooksController < ApplicationController
       flash[:notice] = "This new book could not be created."
       redirect_back(fallback_location: new_book_path)
     end
+  end
+
+  def destroy
+    Book.destroy(params[:id].to_i)
+
+    redirect_to books_path
   end
 
   private

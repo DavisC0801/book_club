@@ -25,9 +25,14 @@ RSpec.describe "As a visitor", type: :feature do
       expect(Author.all).to include(@author_2)
       expect(Author.all).to include(@author_3)
       expect(Author.all).to_not include(@author_1)
-      expect(page).to have_content(@author_3.name)
-      expect(page).to_not have_content(@author_1.name)
-      expect(page).to_not have_content(@author_2.name)
+
+      expect(page).to have_content("#{@author_1.name} was deleted")
+
+      within("#book-list") do
+        expect(page).to have_content(@author_3.name)
+        expect(page).to_not have_content(@author_1.name)
+        expect(page).to_not have_content(@author_2.name)
+      end
     end
 
     it "destroys the author's books" do
@@ -37,9 +42,12 @@ RSpec.describe "As a visitor", type: :feature do
       expect(Book.all).to include(@book_2)
       expect(Book.all).to_not include(@book_1)
       expect(Book.all).to_not include(@book_3)
-      expect(page).to have_content(@book_2.title)
-      expect(page).to_not have_content(@book_1.title)
-      expect(page).to_not have_content(@book_3.title)
+
+      within("#book-list") do
+        expect(page).to have_content(@book_2.title)
+        expect(page).to_not have_content(@book_1.title)
+        expect(page).to_not have_content(@book_3.title)
+      end
     end
   end
 end
