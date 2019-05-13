@@ -41,6 +41,17 @@
       <% end %>
     </ol>
   </div>
+  <div id="most-reviews" class="stats">
+    <h4>Users with Most Reviews Written</h4>
+    <ol>
+      <% @most_review_users.each do |user| %>
+        <li>
+          <%= link_to user.username, user_path(user) %>
+          <%= user.reviews_count %> reviews
+        </li>
+      <% end %>
+    </ol>
+  </div>
 </div>
 <%= link_to "Add new book", new_book_path, { :class => "btn btn-primary"} %>
 <br><br>

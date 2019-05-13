@@ -16,7 +16,7 @@ RSpec.describe "As a visitor", type: :feature do
       @review_1 = @book_2.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: @user_1)
       @review_2 = @book_1.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: @user_2)
       @review_3 = @book_2.reviews.create!(title: "It's OK.", rating: 3, text: "Meh", user: @user_2)
-      @review_4 = @book_2.reviews.create!(title: "four stars", rating: 4, text: "Good", user: @user_4)
+      @review_4 = @book_2.reviews.create!(title: "four stars", rating: 4, text: "Good", user: @user_5)
       @review_5 = @book_4.reviews.create!(title: "two stars", rating: 2, text: "not good", user: @user_2)
       @review_6 = @book_4.reviews.create!(title: "Alright", rating: 3, text: "Not the best", user: @user_5)
       @review_7 = @book_2.reviews.create!(title: "nice", rating: 4, text: "I like it", user: @user_3)
@@ -63,11 +63,11 @@ RSpec.describe "As a visitor", type: :feature do
       within "#statistics" do
         within "#most-reviews" do
           expect(page.all("li")[0]).to have_content(@user_2.username)
-          expect(page.all("li")[0]).to have_content(@user_2.review_count)
+          expect(page.all("li")[0]).to have_content(@user_2.reviews_count)
           expect(page.all("li")[1]).to have_content(@user_5.username)
-          expect(page.all("li")[1]).to have_content(@user_5.review_count)
+          expect(page.all("li")[1]).to have_content(@user_5.reviews_count)
           expect(page.all("li")[2]).to have_content(@user_1.username)
-          expect(page.all("li")[2]).to have_content(@user_1.review_count)
+          expect(page.all("li")[2]).to have_content(@user_1.reviews_count)
         end
       end
     end
