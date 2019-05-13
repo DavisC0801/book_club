@@ -7,7 +7,6 @@ RSpec.describe "As a visitor", type: :feature do
       visit books_path
 
       expect(page).to_not have_content("Published in")
-      expect(page).to_not have_content("pages")
     end
   end
 
