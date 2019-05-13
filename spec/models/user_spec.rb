@@ -34,12 +34,14 @@ RSpec.describe User, type: :model do
     end
 
     it "sorts users by review count" do
-      expect(User.sort_by_review_count).to eq([@user_4, @user_3, @user_1, @user_5, @user_2])
-      expect(User.sort_by_review_count(false)).to eq([@user_2, @user_5, @user_1, @user_3, @user_4])
+      # users with no reviews (e.g. @user_4) are not included
+      expect(User.sort_by_review_count).to eq([@user_3, @user_1, @user_5, @user_2])
+      expect(User.sort_by_review_count(false)).to eq([@user_2, @user_5, @user_1, @user_3])
     end
 
     it "finds the X users with the most reviews" do
-      expect(User.most_reviews(5)).to eq([@user_2, @user_5, @user_1, @user_3, @user_4])
+      # users with no reviews (e.g. @user_4) are not included
+      expect(User.most_reviews(5)).to eq([@user_2, @user_5, @user_1, @user_3])
       expect(User.most_reviews(3)).to eq([@user_2, @user_5, @user_1])
       expect(User.most_reviews(1)).to eq([@user_2])
     end

@@ -8,7 +8,7 @@ class User < ApplicationRecord
     ascending ? descending = '' : descending = ' DESC'
     order_arg = 'COUNT(reviews)' + descending + ' NULLS ' + first_or_last
     User.select('users.*, COUNT(reviews)')
-        .left_joins(:reviews)
+        .joins(:reviews)
         .group('users.id')
         .order(order_arg)
   end

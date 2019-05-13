@@ -127,15 +127,17 @@ RSpec.describe Book, type: :model do
       end
 
       it "finds the X highest rated books" do
-        expect(Book.highest_rated(5)).to eq([@book_5, @book_2, @book_4, @book_1, @book_3])
+        expect(Book.highest_rated(5)).to eq([@book_5, @book_2, @book_4, @book_1])
+        # books with no reviews (e.g. @book_3) are not included
         expect(Book.highest_rated(3)).to eq([@book_5, @book_2, @book_4])
         expect(Book.highest_rated(1)).to eq([@book_5])
       end
 
       it "finds the X lowest rated books" do
-        expect(Book.lowest_rated(5)).to eq([@book_3, @book_1, @book_4, @book_2, @book_5])
-        expect(Book.lowest_rated(3)).to eq([@book_3, @book_1, @book_4])
-        expect(Book.lowest_rated(1)).to eq([@book_3])
+        expect(Book.lowest_rated(5)).to eq([@book_1, @book_4, @book_2, @book_5])
+        # books with no reviews (e.g. @book_3) are not included
+        expect(Book.lowest_rated(3)).to eq([@book_1, @book_4, @book_2])
+        expect(Book.lowest_rated(1)).to eq([@book_1])
       end
     end
   end

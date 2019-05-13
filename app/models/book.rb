@@ -37,11 +37,19 @@ class Book < ApplicationRecord
   end
 
   def self.highest_rated(number)
-    sort_by_rating(false).limit(number)
+    Book.select('books.*, AVG(reviews.rating)')
+        .joins(:reviews)
+        .group('books.id')
+        .order('AVG(reviews.rating) DESC NULLS LAST')
+        .limit(number)
   end
 
   def self.lowest_rated(number)
-    sort_by_rating.limit(number)
+    Book.select('books.*, AVG(reviews.rating)')
+        .joins(:reviews)
+        .group('books.id')
+        .order('AVG(reviews.rating) NULLS FIRST')
+        .limit(number)
   end
 
   def review_count

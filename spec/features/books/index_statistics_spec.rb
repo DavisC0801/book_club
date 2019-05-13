@@ -47,12 +47,12 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#lowest-rated" do
-          expect(page.all("li")[0]).to have_content(@book_3.title)
-          expect(page.all("li")[0]).to have_content(@book_3.average_rating)
-          expect(page.all("li")[1]).to have_content(@book_1.title)
-          expect(page.all("li")[1]).to have_content(@book_1.average_rating)
-          expect(page.all("li")[2]).to have_content(@book_4.title)
-          expect(page.all("li")[2]).to have_content(@book_4.average_rating)
+          expect(page.all("li")[0]).to have_content(@book_1.title)
+          expect(page.all("li")[0]).to have_content(@book_1.average_rating)
+          expect(page.all("li")[1]).to have_content(@book_4.title)
+          expect(page.all("li")[1]).to have_content(@book_4.average_rating)
+          expect(page.all("li")[2]).to have_content(@book_2.title)
+          expect(page.all("li")[2]).to have_content(@book_2.average_rating)
         end
       end
     end
