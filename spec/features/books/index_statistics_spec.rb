@@ -33,11 +33,12 @@ RSpec.describe "As a visitor", type: :feature do
 
         within "#highest-rated" do
           expect(page.all("li")[0]).to have_content(@book_5.title)
-          expect(page.all("li")[0]).to have_content(@book_5.average_rating)
+          expect(page.all("li")[0]).to have_content(@book_5.average_rating.round(1))
           expect(page.all("li")[1]).to have_content(@book_2.title)
-          expect(page.all("li")[1]).to have_content(@book_2.average_rating)
+          expect(page.all("li")[1]).to have_content(@book_2.average_rating.round(1))
           expect(page.all("li")[2]).to have_content(@book_4.title)
-          expect(page.all("li")[2]).to have_content(@book_4.average_rating)
+          expect(page.all("li")[2]).to have_content(@book_4.average_rating.round(1))
+          expect(page).to_not have_content(@book_3.title)
         end
       end
     end
@@ -48,11 +49,12 @@ RSpec.describe "As a visitor", type: :feature do
       within "#statistics" do
         within "#lowest-rated" do
           expect(page.all("li")[0]).to have_content(@book_1.title)
-          expect(page.all("li")[0]).to have_content(@book_1.average_rating)
+          expect(page.all("li")[0]).to have_content(@book_1.average_rating.round(1))
           expect(page.all("li")[1]).to have_content(@book_4.title)
-          expect(page.all("li")[1]).to have_content(@book_4.average_rating)
+          expect(page.all("li")[1]).to have_content(@book_4.average_rating.round(1))
           expect(page.all("li")[2]).to have_content(@book_2.title)
-          expect(page.all("li")[2]).to have_content(@book_2.average_rating)
+          expect(page.all("li")[2]).to have_content(@book_2.average_rating.round(1))
+          expect(page).to_not have_content(@book_3.title)
         end
       end
     end
@@ -68,6 +70,7 @@ RSpec.describe "As a visitor", type: :feature do
           expect(page.all("li")[1]).to have_content(@user_5.reviews_count)
           expect(page.all("li")[2]).to have_content(@user_1.username)
           expect(page.all("li")[2]).to have_content(@user_1.reviews_count)
+          expect(page).to_not have_content(@user_4.username)
         end
       end
     end
