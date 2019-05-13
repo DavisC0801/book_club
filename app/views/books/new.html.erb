@@ -1,19 +1,37 @@
-<h1>New Book</h1>
+<h1>Add a Book</h1>
+<br>
 <%= form_for @book do |f| %>
+  <% f.options[:html][:class] += ' form-group' %>
+
   <%= f.label :title%>
-  <%= f.text_field :title, type: :text, required: true %>
+  <%= f.text_field :title, type: :text, required: true, class: "form-control" %>
+  <small class="form-text text-muted">
+    Required
+  </small>
   <br>
-  <%= f.label :year_published, "Year published - enter a negative number for years BC" %>
-  <%= f.text_field :year_published, type: :number, min: -4000, max: Time.now.year, required: true%>
+  <%= f.label :year_published, "Year published" %>
+  <%= f.text_field :year_published, type: :number, min: -4000, max: Time.now.year, required: true, class: "form-control number-input" %>
+  <small class="form-text text-muted">
+    Required. Enter a negative number for years BC.
+  </small>
   <br>
   <%= f.label :page_count %>
-  <%= f.text_field :page_count, type: :number, min: 1, required: true %>
+  <%= f.text_field :page_count, type: :number, min: 1, required: true, class: "form-control number-input" %>
+  <small class="form-text text-muted">
+    Required
+  </small>
   <br>
   <%= f.label :thumbnail, 'Thumbnail URL' %>
-  <%= f.text_field :thumbnail, type: :url %>
+  <%= f.text_field :thumbnail, type: :url, class: "form-control" %>
+  <small class="form-text text-muted">
+    Optional
+  </small>
   <br>
-  <%= f.label :authors, "Author(s) - separated by commas" %>
-  <%= f.text_field :authors, type: :text, required: true, value: ''%>
+  <%= f.label :authors, "Author(s)" %>
+  <%= f.text_field :authors, type: :text, required: true, value: '', class: "form-control" %>
+  <small class="form-text text-muted">
+    Required. Separate multiple authors' names with commas.
+  </small>
   <br>
-  <%= f.submit %>
+  <%= f.submit class: "btn btn-primary" %>
 <% end %>

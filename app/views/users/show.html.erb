@@ -1,27 +1,39 @@
+<header>
+<h1><%= @user.username %></h1>
+<div id="sort-bar">
+ <a href="<%= user_path(@user) + "?sort=date-desc" %>">Sort by Newest</a>
+ <a href="<%= user_path(@user) + "?sort=date-asc" %>">Sort by Oldest</a>
+</div>
+</header>
 <div id="review-list">
-  <header>
-    <h1><%= @user.username %></h1>
-    <div id="sort-bar">
-      <a href="<%= user_path(@user) + "?sort=date-desc" %>">Sort by Newest</a>
-      <a href="<%= user_path(@user) + "?sort=date-asc" %>">Sort by Oldest</a>
-    </div>
-  </header>
   <h2>Reviews:</h2>
   <% @user.sorted_reviews(@sorted_param).each do |review| %>
-    <div id="book-<%= review.book.id %>-info">
-      <%= image_tag review.book.thumbnail, alt: "Cover of #{review.book.title}"  %>
-      <br><h3><%= link_to review.book.title, book_path(review.book) %></h3><br>
-    </div>
-    <div class="review-info" id="review-<%= review.id %>-info">
-      <h3><%= review.title %></h3>
-      <p>Written on: <%= Date.strptime(review.updated_at.to_s)%></p>
-      <p>Rating: <%= review.rating %>/5</p>
-      <p><%= review.text %></p>
-      <%= button_to('Delete Review', review_path(@user.id),
-          method: "delete",
-          params: { review_id: review.id },
-          data: { confirm: 'Are you sure?', disable_with: 'loading...'})
-      %>
+    <div id="book-<%= review.book.id %>-info" class="card mb-3">
+      <div class="row no-gutters">
+        <div class="col-md-3">
+          <%= image_tag review.book.thumbnail, alt: "Cover of #{review.book.title}", class: "card-img" %>
+        </div>
+        <div class="col-md-9">
+          <div class="card-body review-info" id="review-<%= review.id %>-info">
+            <h6 class="card-title">Review of <%= link_to review.book.title, book_path(review.book) %>:</h6>
+            <h5 class="card-title"><%= review.title %></h5>
+            <p class="card-text">Written on: <%= Date.strptime(review.updated_at.to_s)%></p>
+            <p class="card-text">Rating: <%= review.rating %>/5</p>
+            <!-- delete line above after rewriting tests to use fancy-rating below instead -->
+            <div class="fancy-rating">
+              <div class="star-filling-bar" style="width:<%= (review.rating / 5.0 * 100).round(0).to_i %>%;"></div>
+              <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+            </div>
+            <p class="card-text"><small><%= review.text %></small></p>
+            <%= button_to('Delete Review', review_path(@user.id),
+              method: "delete",
+              params: { review_id: review.id },
+              data: { confirm: 'Are you sure?', disable_with: 'loading...'},
+              class: "btn btn-primary")
+            %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
   <% if @user.reviews_count == 0 %>
