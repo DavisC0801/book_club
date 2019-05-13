@@ -20,7 +20,6 @@ RSpec.describe "As a visitor", type: :feature do
       @review_5 = @book_4.reviews.create!(title: "two stars", rating: 2, text: "not good", user: @user_2)
       @review_6 = @book_4.reviews.create!(title: "Alright", rating: 3, text: "Not the best", user: @user_5)
       @review_7 = @book_2.reviews.create!(title: "nice", rating: 4, text: "I like it", user: @user_3)
-      @review_8 = @book_5.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: @user_1)
       @review_8 = @book_5.reviews.create!(title: "great", rating: 4, text: "read it!", user: @user_1)
       @review_9 = @book_5.reviews.create!(title: "fantastic", rating: 5, text: "the best book ever", user: @user_5)
       @review_10 = @book_5.reviews.create!(title: "spectacular", rating: 5, text: "spot on", user: @user_2)

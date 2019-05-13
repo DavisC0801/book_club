@@ -36,6 +36,10 @@ class Book < ApplicationRecord
         .order(order_arg)
   end
 
+  def self.highest_rated(number)
+    sort_by_rating(false).limit(number)
+  end
+
   def review_count
     reviews.count
   end
