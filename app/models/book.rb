@@ -40,6 +40,10 @@ class Book < ApplicationRecord
     sort_by_rating(false).limit(number)
   end
 
+  def self.lowest_rated(number)
+    sort_by_rating.limit(number)
+  end
+
   def review_count
     reviews.count
   end
