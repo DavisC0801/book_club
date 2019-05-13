@@ -6,7 +6,7 @@
       <a href="<%= user_path(@user) + "?sort=date-asc" %>">Sort by Oldest</a>
     </div>
   </header>
-  <% @user.sorted_reviews(params[:sort]).each do |review| %>
+  <% @user.sorted_reviews(@sorted_param).each do |review| %>
     <div id="book-<%= review.book.id %>-info">
       <img src="<%= review.book.thumbnail %>" alt="Cover of <%= review.book.title %>">
       <br><h3><%= review.book.title %></h3><br>
