@@ -20,13 +20,13 @@ describe "As a Visitor" do
 
       within("#book-#{@book_1.id}") do
         expect(page).to have_content(@review_2.title)
-        expect(page).to have_css("width:#{@review_2.rating_percentage};")
-        expect(page).to have_link("Written by: #{@review_2.user.username}")
+        expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+        expect(page).to have_link("#{@review_2.user.username}")
       end
 
       within("#book-#{@book_2.id}") do
         expect(page).to have_content(@review_4.title)
-        expect(page).to have_css("width:#{@review_4.rating_percentage};")
+        expect(page.html).to include("style=\"width:#{@review_4.rating_percentage}%;\"")
         expect(page).to have_link(@review_4.user.username)
       end
     end
