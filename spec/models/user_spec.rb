@@ -35,6 +35,8 @@ RSpec.describe User, type: :model do
 
       expect(@user_1.sorted_reviews("date-desc").to_a).to eq([review_3, review_1, review_2])
       expect(@user_1.sorted_reviews("date-asc").to_a).to eq([review_2, review_1, review_3])
+      expect(@user_1.sorted_reviews("testing_sad_path").to_a).to eq([review_1, review_2, review_3])
+      expect(@user_1.sorted_reviews(nil).to_a).to eq([review_1, review_2, review_3])
     end
   end
 end
