@@ -26,7 +26,7 @@ RSpec.describe "As a Visitor" do
       expect(current_path).to eq(user_path(@user_1))
     end
 
-    it "sorts the page by oldest" do
+    it "sorts the  user's reviews from oldest to newest" do
       visit user_path(@user_1)
 
       click_link "Sort by Oldest"
