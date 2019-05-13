@@ -14,9 +14,10 @@
  *= require_self
  */
 
- body {
+body {
    margin: 10px;
  }
+
 
 .nav-link {
   color: #aec4e5;
@@ -29,12 +30,14 @@
 .fancy-rating {
   position: relative;
   background-color: #cecece;
-  width: 262px;
-  height: 51px;
+  width: 131px;
+  height: 25px;
 }
 
 .stars {
   position: absolute;
+  width: 100%;
+  height: 100%;
   top: 0px;
   left: 0px;
 }
@@ -45,6 +48,11 @@
   top: 0px;
   left: 0px;
   background-color: #ffd000;
+}
+
+.book-show-thumbnail {
+  max-width: 400px;
+  max-height: 400px;
 }
 
 #welcome {

@@ -4,10 +4,10 @@
   <% @user.reviews.each do |review| %>
     <div id="book-<%= review.book.id %>-info" class="card mb-3">
       <div class="row no-gutters">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <%= image_tag review.book.thumbnail, alt: "Cover of #{review.book.title}", class: "card-img" %>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
           <div class="card-body" id="review-<%= review.id %>-info">
             <h6 class="card-title">Review of <%= link_to review.book.title, book_path(review.book) %>:</h6>
             <h5 class="card-title"><%= review.title %></h5>

@@ -1,6 +1,6 @@
 <h1><%= @book.title %></h1>
 <div id="book-show">
-  <%= image_tag @book.thumbnail, alt: "Cover of #{@book.title}"  %>
+  <%= image_tag @book.thumbnail, alt: "Cover of #{@book.title}", class: "book-show-thumbnail"  %>
   <p>Author(s):
     <% if @book.author_count == 0 %>
       unknown
