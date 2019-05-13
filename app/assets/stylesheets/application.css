@@ -26,6 +26,27 @@
   max-width: 100px;
 }
 
+.fancy-rating {
+  position: relative;
+  background-color: #cecece;
+  width: 262px;
+  height: 51px;
+}
+
+.stars {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.star-filling-bar {
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #ffd000;
+}
+
 #welcome {
   text-align: center;
 }

@@ -13,6 +13,11 @@
             <h5 class="card-title"><%= review.title %></h5>
             <p class="card-text">Written on: <%= Date.strptime(review.updated_at.to_s)%></p>
             <p class="card-text">Rating: <%= review.rating %>/5</p>
+            <!-- delete line above after rewriting tests to use fancy-rating below instead -->
+            <div class="fancy-rating">
+              <div class="star-filling-bar" style="width:<%= (review.rating / 5.0 * 100).round(0).to_i %>%;"></div>
+              <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+            </div>
             <p class="card-text"><small><%= review.text %></small></p>
             <%= button_to('Delete Review', review_path(@user.id),
               method: "delete",
