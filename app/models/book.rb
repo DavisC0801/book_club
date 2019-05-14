@@ -88,4 +88,8 @@ class Book < ApplicationRecord
       reviews.order(rating: :desc)
     end
   end
+
+  def rating_percentage
+    (average_rating / 5.0 * 100).round(0).to_i
+  end
 end
