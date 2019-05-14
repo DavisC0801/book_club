@@ -16,11 +16,11 @@
       <br>
     </div>
     <div id="highest-ratings" class="stats">
-      <h4>Top 3 Reviews:</h4>
+      <h4>Top <%= @book.review_count >= 3 ? 3 : @book.review_count %> Reviews:</h4>
       <ol>
         <% @book.top_reviews(3).each do |review| %>
           <li>
-            <%= review.title %>, Written by:
+            <%= review.title %>, written by:
             <%= link_to review.user.username, user_path(review.user) %>
             <div class="fancy-rating">
               <div class="star-filling-bar" style="width:<%= review.rating_percentage %>%;"></div>
@@ -31,11 +31,11 @@
       </ol>
     </div>
     <div id="lowest-ratings" class="stats">
-      <h4>Bottom 3 Reviews:</h4>
+      <h4>Bottom <%= @book.review_count >= 3 ? 3 : @book.review_count %> Reviews:</h4>
       <ol>
         <% @book.bottom_reviews(3).each do |review| %>
           <li>
-            <%= review.title %>, Written by:
+            <%= review.title %>, written by:
             <%= link_to review.user.username, user_path(review.user) %>
             <div class="fancy-rating">
               <div class="star-filling-bar" style="width:<%= review.rating_percentage %>%;"></div>
