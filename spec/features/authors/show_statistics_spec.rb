@@ -15,7 +15,7 @@ describe "As a Visitor" do
       @review_4 = @book_2.reviews.create!(title: "Terrible", rating: 1, text: "Absolutely bad.", user: user_2)
     end
 
-    it "should show the highest rated review" do
+    it "should show the highest rated review for each book" do
       visit author_path(@author_1)
 
       within("#book-#{@book_1.id}") do
