@@ -25,13 +25,19 @@ RSpec.describe "As a visitor", type: :feature do
         within "#highest-ratings" do
           expect(page).to have_content("Top 3 Reviews")
           expect(page.all("li")[0]).to have_content(@review_1.title)
-          expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+          within("#review-#{@review_1.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+          end
           expect(page.all("li")[0]).to have_link(@review_1.user.username)
           expect(page.all("li")[1]).to have_content(@review_4.title)
-          expect(page.html).to include("style=\"width:#{@review_4.rating_percentage}%;\"")
+          within("#review-#{@review_4.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_4.rating_percentage}%;\"")
+          end
           expect(page.all("li")[1]).to have_link(@review_4.user.username)
           expect(page.all("li")[2]).to have_content(@review_3.title)
-          expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+          within("#review-#{@review_3.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+          end
           expect(page.all("li")[2]).to have_link(@review_3.user.username)
           expect(page).to_not have_content(@review_2.title)
         end
@@ -45,13 +51,19 @@ RSpec.describe "As a visitor", type: :feature do
         within "#lowest-ratings" do
           expect(page).to have_content("Bottom 3 Reviews")
           expect(page.all("li")[0]).to have_content(@review_2.title)
-          expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+          within("#review-#{@review_2.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+          end
           expect(page.all("li")[0]).to have_link(@review_2.user.username)
           expect(page.all("li")[1]).to have_content(@review_5.title)
-          expect(page.html).to include("style=\"width:#{@review_5.rating_percentage}%;\"")
+          within("#review-#{@review_5.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_5.rating_percentage}%;\"")
+          end
           expect(page.all("li")[1]).to have_link(@review_5.user.username)
           expect(page.all("li")[2]).to have_content(@review_3.title)
-          expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+          within("#review-#{@review_3.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+          end
           expect(page.all("li")[2]).to have_link(@review_3.user.username)
           expect(page).to_not have_content(@review_1.title)
         end
