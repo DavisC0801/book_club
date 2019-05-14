@@ -21,7 +21,7 @@ describe "As a Visitor" do
       within("#book-#{@book_1.id}") do
         expect(page).to have_content(@review_2.title)
         expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
-        expect(page).to have_link("#{@review_2.user.username}")
+        expect(page).to have_link(@review_2.user.username)
       end
 
       within("#book-#{@book_2.id}") do
