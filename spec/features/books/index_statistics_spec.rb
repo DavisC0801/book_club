@@ -135,8 +135,6 @@ RSpec.describe "As a visitor", type: :feature do
         expect(page).to_not have_content("Highest Rated Books")
         expect(page).to_not have_content("Users with Most Reviews Written")
       end
-
-      save_and_open_page
     end
   end
 end

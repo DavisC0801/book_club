@@ -140,6 +140,15 @@ RSpec.describe Book, type: :model do
         expect(Book.lowest_rated(1)).to eq([@book_1])
       end
     end
+
+    describe "statistics without data" do
+      it "shows an empty array if no rated books" do
+        Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+        
+        expect(Book.highest_rated(5)).to eq([])
+        expect(Book.lowest_rated(5)).to eq([])
+      end
+    end
   end
 
   describe "instance methods" do
