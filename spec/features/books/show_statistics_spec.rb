@@ -82,6 +82,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#highest-ratings" do
+          expect(page).to have_content("Top 1 Reviews")
           expect(page).to have_content(@review_1.title)
           expect(page.all("li").count).to eq(1)
         end
@@ -93,6 +94,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#lowest-ratings" do
+          expect(page).to have_content("Bottom 1 Reviews")
           expect(page).to have_content(@review_1.title)
           expect(page.all("li").count).to eq(1)
         end
