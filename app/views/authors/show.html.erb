@@ -35,7 +35,7 @@
             <h5 class="card-title">Top Review:</h5>
             <p class="card-text"><%= review.title %></p>
             <div class="fancy-rating">
-              <div class="star-filling-bar" style="width:<%= (review.rating / 5.0 * 100).round(0).to_i %>%;"></div>
+              <div class="star-filling-bar" style="width:<%= review.rating_percentage %>%;"></div>
               <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
             </div>
             <p class="card-text">Written by: <%= link_to review.user.username, user_path(review.user) %></p>
