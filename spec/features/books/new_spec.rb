@@ -159,7 +159,7 @@ RSpec.describe "As a visitor" do
       end
     end
 
-    it "redirects back to the new book page with message if book is not created" do
+    it "redirects back to the new book page with message if title is re-used" do
       book_1 = Book.create(title: @title, page_count: 100, year_published: 800, thumbnail: @thumbnail)
 
       visit new_book_path
@@ -173,7 +173,7 @@ RSpec.describe "As a visitor" do
       click_button "Create Book"
 
       expect(current_path).to eq(new_book_path)
-      expect(page).to have_content("This book has already been created")
+      expect(page).to have_content("Title has already been taken")
     end
   end
 end

@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
         flash[:notice] = "The new review was added"
         redirect_to book_path(params[:book_id])
       else
-        flash[:notice] = "Failed to add the review"
+        flash[:notice] = review.errors.full_messages
         redirect_back(fallback_location: book_path(params[:book_id]))
       end
     end
