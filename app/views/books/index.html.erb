@@ -43,6 +43,20 @@
         <% end %>
       </ol>
     </div>
+    <div id="highest_rated_authors" class="stats">
+      <h4>Highest Rated Authors</h4>
+      <ol>
+        <% @highest_rated_authors.each do |author| %>
+          <li>
+            <%= link_to author.name, author_path(author) %>
+            <div class="fancy-rating">
+              <div class="star-filling-bar" id="review-<%= author.id %>-bar" style="width:<%= author.rating_percentage %>%;"></div>
+              <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </div>
   <% end %>
 </div>
 <%= link_to "Add new book", new_book_path, { :class => "btn btn-primary"} %>

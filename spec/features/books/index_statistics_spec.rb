@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe "As a visitor", type: :feature do
   describe "book index statistics" do
     before(:each) do
-      @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
-      @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
-      @book_3 = Book.create!(title: "50 Shades of Grey", page_count: 514, year_published: 2011, thumbnail: "https://upload.wikimedia.org/wikipedia/en/5/5e/50ShadesofGreyCoverArt.jpg")
-      @book_4 = Book.create!(title: "Title 4", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/5/5e/50ShadesofGreyCoverArt.jpg")
-      @book_5 = Book.create!(title: "Title 5", page_count: 514, year_published: 2011, thumbnail: "https://upload.wikimedia.org/wikipedia/en/5/5e/50ShadesofGreyCoverArt.jpg")
+      @author_1 = Author.create(name: "Author 1")
+      @author_2 = Author.create(name: "Author 2")
+      @author_3 = Author.create(name: "Author 3")
+      @book_1 = @author_1.books.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+      @book_2 = @author_2.books.create!(title: "To Kill a Mockingbird", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
+      @book_3 = @author_2.books.create!(title: "50 Shades of Grey", page_count: 514, year_published: 2011, thumbnail: "https://upload.wikimedia.org/wikipedia/en/5/5e/50ShadesofGreyCoverArt.jpg")
+      @book_4 = @author_3.books.create!(title: "Title 4", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/5/5e/50ShadesofGreyCoverArt.jpg")
+      @book_5 = @author_3.books.create!(title: "Title 5", page_count: 514, year_published: 2011, thumbnail: "https://upload.wikimedia.org/wikipedia/en/5/5e/50ShadesofGreyCoverArt.jpg")
       @user_1 = User.create(username: "Chris Davis")
       @user_2 = User.create(username: "Alexandra Chakeres")
       @user_3 = User.create(username: "User 3")
@@ -86,6 +89,28 @@ RSpec.describe "As a visitor", type: :feature do
           expect(page.all("li")[2]).to have_link(@user_1.username)
           expect(page.all("li")[2]).to have_content(@user_1.reviews_count)
           expect(page).to_not have_link(@user_4.username)
+        end
+      end
+    end
+
+    it "shows the 3 top authors" do
+      visit books_path
+
+      within "#statistics" do
+        within "#highest_rated_authors" do
+          expect(page).to have_content("Highest Rated Authors")
+          expect(page.all("li")[0]).to have_link(@author_2.name)
+          within("#review-#{@author_2.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@author_2.rating_percentage}%;\"")
+          end
+          expect(page.all("li")[1]).to have_link(@author_3.name)
+          within("#review-#{@author_3.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@author_3.rating_percentage}%;\"")
+          end
+          expect(page.all("li")[2]).to have_link(@author_1.name)
+          within("#review-#{@author_1.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@author_1.rating_percentage}%;\"")
+          end
         end
       end
     end

@@ -33,6 +33,12 @@ RSpec.describe Author, type: :model do
         expect(Author.all).to include(@author_3)
         expect(Author.all).to_not include(@author_1)
       end
+
+      it "sorts by highest rated author" do
+        expect(Author.highest_rated(3).to_a).to eq([@author_2, @author_1, @author_3])
+        expect(Author.highest_rated(2).to_a).to eq([@author_2, @author_1])
+        expect(Author.highest_rated(1).to_a).to eq([@author_2])
+      end
     end
   end
 
@@ -42,11 +48,20 @@ RSpec.describe Author, type: :model do
       @author_2 = Author.create!(name: "Charles Dickens")
       @book_1 = @author_1.books.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874)
       @book_2 = @author_1.books.create!(title: "To Kill a Mockingbird", page_count: 281, year_published: 1960)
+      user_1 = User.create(username: "Chris Davis")
+      user_2 = User.create(username: "Alexandra Chakeres")
+      @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: user_1)
+      @review_2 = @book_2.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: user_2)
+      @review_3 = @book_1.reviews.create!(title: "It's OK.", rating: 3, text: "Meh", user: user_2)
     end
 
     it "counts books" do
       expect(@author_1.book_count).to eq(2)
       expect(@author_2.book_count).to eq(0)
+    end
+
+    it "calcuates ratings" do
+      expect(@author_1.rating_percentage).to eq(60)
     end
   end
 end
