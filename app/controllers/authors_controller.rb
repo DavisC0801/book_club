@@ -12,10 +12,14 @@ class AuthorsController < ApplicationController
   end
 
   def destroy
-    author_name = Author.find(params[:id]).name
-    Author.destroy_author(params[:id].to_i)
-    flash[:notice] = "#{author_name} was deleted"
+    author = Author.find(params[:id])
+    author_name = author.name
+    author.books.each do |book|
+      book.destroy
+    end
+    author.destroy
 
+    flash[:notice] = "#{author_name} was deleted"
     redirect_to books_path
   end
 end
