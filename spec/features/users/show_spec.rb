@@ -48,7 +48,9 @@ RSpec.describe "as a visitor" do
       within("#review-#{@review_1.id}-info") do
         expect(page).to have_content(@review_1.title)
         expect(page).to have_content("Written on: #{Date.strptime(@review_1.updated_at.to_s)}")
-        expect(page).to have_content("Rating: #{@review_1.rating}/5")
+        within("#review-#{@review_1.id}-bar") do
+          expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+        end
         expect(page).to have_content(@review_1.text)
       end
 
@@ -60,7 +62,9 @@ RSpec.describe "as a visitor" do
       within("#review-#{@review_2.id}-info") do
         expect(page).to have_content(@review_2.title)
         expect(page).to have_content("Written on: #{Date.strptime(@review_2.updated_at.to_s)}")
-        expect(page).to have_content("Rating: #{@review_2.rating}/5")
+        within("#review-#{@review_2.id}-bar") do
+          expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+        end
         expect(page).to have_content(@review_2.text)
       end
     end

@@ -22,10 +22,8 @@
     <div id="review-<%= review.id %>">
       <h3><%= review.title %></h3>
       <p>Written by: <%= link_to review.user.username, user_path(review.user) %></p>
-      <p>Rating: <%= review.rating %>/5</p>
-      <!-- delete line above after rewriting tests to use fancy-rating below instead -->
       <div class="fancy-rating">
-        <div class="star-filling-bar" style="width:<%= (review.rating / 5.0 * 100).round(0).to_i %>%;"></div>
+        <div class="star-filling-bar" id="review-<%= review.id %>-bar" style="width:<%= review.rating_percentage %>%;"></div>
         <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
       </div>
       <p><%= review.text %></p>

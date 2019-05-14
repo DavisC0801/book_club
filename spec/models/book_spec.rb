@@ -139,12 +139,20 @@ RSpec.describe Book, type: :model do
         expect(Book.lowest_rated(3)).to eq([@book_1, @book_4, @book_2])
         expect(Book.lowest_rated(1)).to eq([@book_1])
       end
+
+      it "gives each rating a percentage" do
+        expect(@book_1.rating_percentage).to eq(20)
+        expect(@book_2.rating_percentage).to eq(80)
+        expect(@book_3.rating_percentage).to eq(0)
+        expect(@book_4.rating_percentage).to eq(50)
+        expect(@book_5.rating_percentage).to eq(93)
+      end
     end
 
     describe "statistics without data" do
       it "shows an empty array if no rated books" do
         Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
-        
+
         expect(Book.highest_rated(5)).to eq([])
         expect(Book.lowest_rated(5)).to eq([])
       end

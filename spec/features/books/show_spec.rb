@@ -26,7 +26,7 @@ RSpec.describe "As a visitor", type: :feature do
       visit book_path(@book_1)
 
       expect(page).to have_content(@book_1.title)
-      
+
       within "#book-show" do
         expect(page).to have_content(@author_1.name)
         expect(page).to have_content(@author_2.name)
@@ -43,14 +43,18 @@ RSpec.describe "As a visitor", type: :feature do
         within "#review-#{@review_1.id}" do
           expect(page).to have_content(@review_1.title)
           expect(page).to have_content("Written by: #{@review_1.user.username}")
-          expect(page).to have_content("Rating: #{@review_1.rating}/5")
+          within("#review-#{@review_1.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+          end
           expect(page).to have_content(@review_1.text)
         end
 
         within "#review-#{@review_3.id}" do
           expect(page).to have_content(@review_3.title)
           expect(page).to have_content("Written by: #{@review_3.user.username}")
-          expect(page).to have_content("Rating: #{@review_3.rating}/5")
+          within("#review-#{@review_3.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+          end
           expect(page).to have_content(@review_3.text)
         end
 
