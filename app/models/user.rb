@@ -27,6 +27,10 @@ class User < ApplicationRecord
       reviews.order(updated_at: :asc)
     when "date-desc"
       reviews.order(updated_at: :desc)
+    when "rating-desc"
+      reviews.order(rating: :desc).order(updated_at: :desc)
+    when "rating-asc"
+      reviews.order(rating: :asc).order(updated_at: :asc)
     else
       reviews
     end
