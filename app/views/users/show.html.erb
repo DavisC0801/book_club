@@ -1,9 +1,5 @@
 <header>
 <h1><%= @user.username %></h1>
-<div id="sort-bar">
- <a href="<%= user_path(@user) + "?sort=date-desc" %>">Sort by Newest</a>
- <a href="<%= user_path(@user) + "?sort=date-asc" %>">Sort by Oldest</a>
-</div>
 </header>
 <div id="review-list">
   <h2>Reviews:</h2>

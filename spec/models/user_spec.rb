@@ -76,5 +76,15 @@ RSpec.describe User, type: :model do
       expect(@user_1.sorted_reviews("testing_sad_path").to_a).to eq([review_1, review_2, review_3])
       expect(@user_1.sorted_reviews(nil).to_a).to eq([review_1, review_2, review_3])
     end
+
+    it "sorts reviews by rating" do
+      review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: @user_1)
+      review_2 = @book_2.reviews.create!(title: "This book is OK.", rating: 3, text: "Read it if you want.", user: @user_1)
+      travel 1.day
+      review_3 = @book_3.reviews.create!(title: "This book is also OK.", rating: 3, text: "DI'm ", user: @user_1)
+
+      expect(@user_1.sorted_reviews("rating-desc").to_a).to eq([review_1, review_3, review_2])
+      expect(@user_1.sorted_reviews("rating-asc").to_a).to eq([review_2, review_3, review_1])
+    end
   end
 end

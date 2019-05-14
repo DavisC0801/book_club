@@ -74,6 +74,54 @@ RSpec.describe "As a Visitor" do
       expect(current_path).to eq(user_path(@user_1))
     end
 
+    it "sorts the user's reviews from lowest to highest" do
+      visit user_path(@user_1)
+
+      click_link "Sort by Lowest Rating"
+
+      expect(page.all(".review-info")[0]).to have_content(@review_1.title)
+      within("#review-#{@review_1.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+      end
+      expect(page.all(".review-info")[0]).to have_content(@review_1.text)
+      expect(page.all(".review-info")[1]).to have_content(@review_3.title)
+      within("#review-#{@review_3.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+      end
+      expect(page.all(".review-info")[1]).to have_content(@review_3.text)
+      expect(page.all(".review-info")[2]).to have_content(@review_2.title)
+      within("#review-#{@review_2.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+      end
+      expect(page.all(".review-info")[2]).to have_content(@review_2.text)
+
+      expect(current_path).to eq(user_path(@user_1))
+    end
+
+    it "sorts the user's reviews from highest to lowest" do
+      visit user_path(@user_1)
+
+      click_link "Sort by Highest Rating"
+
+      expect(page.all(".review-info")[0]).to have_content(@review_2.title)
+      within("#review-#{@review_2.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+      end
+      expect(page.all(".review-info")[0]).to have_content(@review_2.text)
+      expect(page.all(".review-info")[1]).to have_content(@review_3.title)
+      within("#review-#{@review_3.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+      end
+      expect(page.all(".review-info")[1]).to have_content(@review_3.text)
+      expect(page.all(".review-info")[2]).to have_content(@review_1.title)
+      within("#review-#{@review_1.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+      end
+      expect(page.all(".review-info")[2]).to have_content(@review_1.text)
+
+      expect(current_path).to eq(user_path(@user_1))
+    end
+
     it "handles junk queries" do
       visit (user_path(@user_1) + "?sort=testing")
 
