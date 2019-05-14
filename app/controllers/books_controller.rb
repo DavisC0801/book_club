@@ -1,5 +1,9 @@
 class BooksController < ApplicationController
   def index
+    @highest_rated_books = Book.highest_rated(3)
+    @lowest_rated_books = Book.lowest_rated(3)
+    @most_review_users = User.most_reviews(3)
+    @total_review_count = Book.total_review_count
     case params[:sort]
     when "rating-asc"
       @books = Book.sort_by_rating
