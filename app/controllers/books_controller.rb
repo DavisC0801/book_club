@@ -4,6 +4,7 @@ class BooksController < ApplicationController
     @lowest_rated_books = Book.lowest_rated(3)
     @most_review_users = User.most_reviews(3)
     @total_review_count = Book.total_review_count
+    @highest_rated_authors = Author.highest_rated(3)
     @show_sort_button = true
     case params[:sort]
     when "rating-asc"
