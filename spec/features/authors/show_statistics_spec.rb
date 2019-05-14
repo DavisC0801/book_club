@@ -15,13 +15,13 @@ describe "As a Visitor" do
       @review_4 = @book_2.reviews.create!(title: "Terrible", rating: 1, text: "Absolutely bad.", user: user_2)
     end
 
-    it "should show the highest rated review" do
+    it "should show the highest rated review for each book" do
       visit author_path(@author_1)
 
       within("#book-#{@book_1.id}") do
         expect(page).to have_content(@review_2.title)
         expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
-        expect(page).to have_link("#{@review_2.user.username}")
+        expect(page).to have_link(@review_2.user.username)
       end
 
       within("#book-#{@book_2.id}") do

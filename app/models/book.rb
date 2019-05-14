@@ -62,7 +62,7 @@ class Book < ApplicationRecord
   end
 
   def sort_book_reviews(ascending = true)
-    if ascending == true
+    if ascending
       reviews.order(rating: :asc)
     else
       reviews.order(rating: :desc)
