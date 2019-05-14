@@ -34,11 +34,17 @@ RSpec.describe "As a visitor", type: :feature do
         within "#highest-rated" do
           expect(page).to have_content("Highest Rated Books")
           expect(page.all("li")[0]).to have_link(@book_5.title)
-          expect(page.all("li")[0]).to have_content(@book_5.average_rating.round(1))
+          within("#review-#{@book_5.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@book_5.rating_percentage}%;\"")
+          end
           expect(page.all("li")[1]).to have_link(@book_2.title)
-          expect(page.all("li")[1]).to have_content(@book_2.average_rating.round(1))
+          within("#review-#{@book_2.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@book_2.rating_percentage}%;\"")
+          end
           expect(page.all("li")[2]).to have_link(@book_4.title)
-          expect(page.all("li")[2]).to have_content(@book_4.average_rating.round(1))
+          within("#review-#{@book_4.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@book_4.rating_percentage}%;\"")
+          end
           expect(page).to_not have_link(@book_3.title)
         end
       end
@@ -51,11 +57,17 @@ RSpec.describe "As a visitor", type: :feature do
         within "#lowest-rated" do
           expect(page).to have_content("Lowest Rated Books")
           expect(page.all("li")[0]).to have_link(@book_1.title)
-          expect(page.all("li")[0]).to have_content(@book_1.average_rating.round(1))
+          within("#review-#{@book_1.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@book_1.rating_percentage}%;\"")
+          end
           expect(page.all("li")[1]).to have_link(@book_4.title)
-          expect(page.all("li")[1]).to have_content(@book_4.average_rating.round(1))
+          within("#review-#{@book_4.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@book_4.rating_percentage}%;\"")
+          end
           expect(page.all("li")[2]).to have_link(@book_2.title)
-          expect(page.all("li")[2]).to have_content(@book_2.average_rating.round(1))
+          within("#review-#{@book_2.id}-bar") do
+            expect(page.html).to include("style=\"width:#{@book_2.rating_percentage}%;\"")
+          end
           expect(page).to_not have_link(@book_3.title)
         end
       end

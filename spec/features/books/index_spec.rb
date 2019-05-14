@@ -69,13 +69,12 @@ RSpec.describe "As a visitor", type: :feature do
       visit books_path
 
       within "#book-#{@book_1.id}" do
-        avg_rating = (@review_1.rating + @review_2.rating) / 2.0
-        expect(page).to have_content("Average Rating: #{avg_rating.round(1)}")
+        expect(page.html).to include("style=\"width:#{@book_1.rating_percentage}%;\"")
       end
 
       within "#book-#{@book_2.id}" do
         # Note: book 2 has no reviews
-        expect(page).to have_content("Average Rating: 0")
+        expect(page.html).to include("style=\"width:0%;\"")
       end
     end
 

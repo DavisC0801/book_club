@@ -1,4 +1,53 @@
 <h1><%= @book.title %></h1>
+
+<%= link_to "Show/Hide Statistics", "#statistics", { class: "btn btn-primary", "data-toggle" => "collapse", "role" => "button", "aria-expanded" => "false", "aria-controls" => "statistics" } %>
+<br>
+<div id="statistics" class="collapse" >
+  <h3>Statistics</h3>
+  <% if @book.review_count == 0 %>
+    <p>This book doesn't have any reviews yet.</p>
+  <% else %>
+    <div id="average-rating">
+      <h4>Average Rating: </h4>
+      <div class="fancy-rating">
+        <div class="star-filling-bar" id="review-<%= @book.id %>-bar" style="width:<%= @book.rating_percentage %>%;"></div>
+        <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+      </div>
+      <br>
+    </div>
+    <div id="highest-ratings" class="stats">
+      <h4>Top <%= @book.review_count >= 3 ? 3 : @book.review_count %> Reviews:</h4>
+      <ol>
+        <% @book.top_reviews(3).each do |review| %>
+          <li>
+            <%= review.title %>, written by:
+            <%= link_to review.user.username, user_path(review.user) %>
+            <div class="fancy-rating">
+              <div class="star-filling-bar" id="review-<%= review.id %>-bar" style="width:<%= review.rating_percentage %>%;"></div>
+              <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+    <div id="lowest-ratings" class="stats">
+      <h4>Bottom <%= @book.review_count >= 3 ? 3 : @book.review_count %> Reviews:</h4>
+      <ol>
+        <% @book.bottom_reviews(3).each do |review| %>
+          <li>
+            <%= review.title %>, written by:
+            <%= link_to review.user.username, user_path(review.user) %>
+            <div class="fancy-rating">
+              <div class="star-filling-bar" id="review-<%= review.id %>-bar" style="width:<%= review.rating_percentage %>%;"></div>
+              <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+  <% end %>
+</div>
+<br>
 <div id="book-show">
   <%= image_tag @book.thumbnail, alt: "Cover of #{@book.title}", class: "book-show-thumbnail"  %>
   <p>Author(s):
@@ -22,10 +71,8 @@
     <div id="review-<%= review.id %>">
       <h3><%= review.title %></h3>
       <p>Written by: <%= link_to review.user.username, user_path(review.user) %></p>
-      <p>Rating: <%= review.rating %>/5</p>
-      <!-- delete line above after rewriting tests to use fancy-rating below instead -->
       <div class="fancy-rating">
-        <div class="star-filling-bar" style="width:<%= (review.rating / 5.0 * 100).round(0).to_i %>%;"></div>
+        <div class="star-filling-bar" id="review-<%= review.id %>-bar" style="width:<%= review.rating_percentage %>%;"></div>
         <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
       </div>
       <p><%= review.text %></p>

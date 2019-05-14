@@ -23,9 +23,9 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "average rating (lowest to highest)"
       end
 
-      expect(page.all(".book-info")[0]).to have_content(@book_3.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_1.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_2.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_3.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_1.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_2.title)
     end
 
     it "should show a link to sort books by average rating (descending)" do
@@ -35,9 +35,9 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "average rating (highest to lowest)"
       end
 
-      expect(page.all(".book-info")[0]).to have_content(@book_2.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_1.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_3.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_2.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_1.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_3.title)
     end
 
     it "should show a link to sort books by number of pages (ascending)" do
@@ -47,9 +47,9 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "number of pages (lowest to highest)"
       end
 
-      expect(page.all(".book-info")[0]).to have_content(@book_1.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_3.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_2.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_1.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_3.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_2.title)
     end
 
     it "should show a link to sort books by number of pages (descending)" do
@@ -59,9 +59,9 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "number of pages (highest to lowest)"
       end
 
-      expect(page.all(".book-info")[0]).to have_content(@book_2.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_3.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_1.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_2.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_3.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_1.title)
     end
 
     it "should show a link to sort books by number of reviews (ascending)" do
@@ -71,9 +71,9 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "number of reviews (lowest to highest)"
       end
 
-      expect(page.all(".book-info")[0]).to have_content(@book_3.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_1.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_2.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_3.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_1.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_2.title)
     end
 
     it "should show a link to sort books by number of reviews (descending)" do
@@ -83,23 +83,23 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "number of reviews (highest to lowest)"
       end
 
-      expect(page.all(".book-info")[0]).to have_content(@book_2.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_1.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_3.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_2.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_1.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_3.title)
     end
 
     it "sorting by anything else does nothing" do
       visit "#{books_path}?sort=title-asc"
 
-      expect(page.all(".book-info")[0]).to have_content(@book_1.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_2.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_3.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_1.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_2.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_3.title)
 
       visit "#{books_path}?sort=zebra"
 
-      expect(page.all(".book-info")[0]).to have_content(@book_1.title)
-      expect(page.all(".book-info")[1]).to have_content(@book_2.title)
-      expect(page.all(".book-info")[2]).to have_content(@book_3.title)
+      expect(page.all(".book-info")[0]).to have_link(@book_1.title)
+      expect(page.all(".book-info")[1]).to have_link(@book_2.title)
+      expect(page.all(".book-info")[2]).to have_link(@book_3.title)
     end
   end
 
@@ -124,9 +124,9 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "average rating (lowest to highest)"
       end
 
-      expect(page).to have_content(@book_1.title)
-      expect(page).to have_content(@book_2.title)
-      expect(page).to have_content(@book_3.title)
+      expect(page).to have_link(@book_1.title)
+      expect(page).to have_link(@book_2.title)
+      expect(page).to have_link(@book_3.title)
     end
 
     it "doesn't error out when there are no books" do

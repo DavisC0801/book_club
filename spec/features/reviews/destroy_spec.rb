@@ -54,10 +54,14 @@ RSpec.describe "As a Visitor" do
       expect(page).to_not have_content("Rating: #{@review_1.rating}/5")
       expect(page).to_not have_content(@review_1.text)
       expect(page).to have_content(@review_2.title)
-      expect(page).to have_content("Rating: #{@review_2.rating}/5")
+      within("#review-#{@review_2.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+      end
       expect(page).to have_content(@review_2.text)
       expect(page).to have_content(@review_3.title)
-      expect(page).to have_content("Rating: #{@review_3.rating}/5")
+      within("#review-#{@review_3.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+      end
       expect(page).to have_content(@review_3.text)
 
       expect(Review.all).to_not include(@review_1)

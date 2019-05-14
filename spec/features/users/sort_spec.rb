@@ -32,13 +32,19 @@ RSpec.describe "As a Visitor" do
       click_link "Sort by Oldest"
 
       expect(page.all(".review-info")[0]).to have_content(@review_2.title)
-      expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_2.rating}/5")
+      within("#review-#{@review_2.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[0]).to have_content(@review_2.text)
       expect(page.all(".review-info")[1]).to have_content(@review_1.title)
-      expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_1.rating}/5")
+      within("#review-#{@review_1.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[1]).to have_content(@review_1.text)
       expect(page.all(".review-info")[2]).to have_content(@review_3.title)
-      expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_3.rating}/5")
+      within("#review-#{@review_3.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[2]).to have_content(@review_3.text)
 
       expect(current_path).to eq(user_path(@user_1))
@@ -50,13 +56,19 @@ RSpec.describe "As a Visitor" do
       click_link "Sort by Newest"
 
       expect(page.all(".review-info")[0]).to have_content(@review_3.title)
-      expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_3.rating}/5")
+      within("#review-#{@review_3.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[0]).to have_content(@review_3.text)
       expect(page.all(".review-info")[1]).to have_content(@review_1.title)
-      expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_1.rating}/5")
+      within("#review-#{@review_1.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[1]).to have_content(@review_1.text)
       expect(page.all(".review-info")[2]).to have_content(@review_2.title)
-      expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_2.rating}/5")
+      within("#review-#{@review_2.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[2]).to have_content(@review_2.text)
 
       expect(current_path).to eq(user_path(@user_1))
@@ -66,13 +78,18 @@ RSpec.describe "As a Visitor" do
       visit (user_path(@user_1) + "?sort=testing")
 
       expect(page.all(".review-info")[0]).to have_content(@review_1.title)
-      expect(page.all(".review-info")[0]).to have_content("Rating: #{@review_1.rating}/5")
+      within("#review-#{@review_1.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_1.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[0]).to have_content(@review_1.text)
       expect(page.all(".review-info")[1]).to have_content(@review_2.title)
-      expect(page.all(".review-info")[1]).to have_content("Rating: #{@review_2.rating}/5")
-      expect(page.all(".review-info")[1]).to have_content(@review_2.text)
+      within("#review-#{@review_2.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_2.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[2]).to have_content(@review_3.title)
-      expect(page.all(".review-info")[2]).to have_content("Rating: #{@review_3.rating}/5")
+      within("#review-#{@review_3.id}-bar") do
+        expect(page.html).to include("style=\"width:#{@review_3.rating_percentage}%;\"")
+      end
       expect(page.all(".review-info")[2]).to have_content(@review_3.text)
     end
   end
