@@ -30,6 +30,17 @@
               </div>
             </li>
           <% end %>
+          <% if @user_show_sort %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By...</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01" id="sort-bar">
+              <%= link_to "Sort by Newest", "#{user_path(@user)}?sort=date-desc", class: "dropdown-item" %>
+              <%= link_to "Sort by Oldest", "#{user_path(@user)}?sort=date-asc", class: "dropdown-item" %>
+              <%= link_to "Sort by Highest Rating", "#{user_path(@user)}?sort=rating-desc", class: "dropdown-item" %>
+              <%= link_to "Sort by Lowest Rating", "#{user_path(@user)}?sort=rating-asc", class: "dropdown-item" %>
+            </div>
+          </li>
+          <% end %>
         </ul>
       </nav>
     <% end %>
