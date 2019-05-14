@@ -136,7 +136,7 @@ RSpec.describe "As a visitor", type: :feature do
         click_link "average rating (lowest to highest)"
       end
 
-      expect(page).to have_content("Sort by")
+      expect(page).to have_content("Sort By")
     end
   end
 end

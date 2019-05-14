@@ -4,6 +4,7 @@ class BooksController < ApplicationController
     @lowest_rated_books = Book.lowest_rated(3)
     @most_review_users = User.most_reviews(3)
     @total_review_count = Book.total_review_count
+    @show_sort_button = true
     case params[:sort]
     when "rating-asc"
       @books = Book.sort_by_rating
@@ -50,11 +51,8 @@ class BooksController < ApplicationController
 
       flash[:notice] = "#{book.title} was added"
       redirect_to book_path(book)
-    elsif !book.save && !Book.pluck.include?(book_params[:title])
-      flash[:notice] = "This book has already been created."
-      redirect_back(fallback_location: new_book_path)
     else
-      flash[:notice] = "This new book could not be created."
+      flash[:notice] = book.errors.full_messages
       redirect_back(fallback_location: new_book_path)
     end
   end

@@ -27,27 +27,11 @@ RSpec.describe Author, type: :model do
       end
 
       it "destroys the author" do
-        Author.destroy_author(@author_1.id)
+        @author_1.destroy
 
         expect(Author.all).to include(@author_2)
         expect(Author.all).to include(@author_3)
         expect(Author.all).to_not include(@author_1)
-      end
-
-      it "destroys the author's books" do
-        Author.destroy_author(@author_1.id)
-
-        expect(Book.all).to include(@book_2)
-        expect(Book.all).to_not include(@book_1)
-        expect(Book.all).to_not include(@book_3)
-      end
-
-      it "destroys the author's books' reviews" do
-        Author.destroy_author(@author_1.id)
-
-        expect(Review.all).to include(@review_2)
-        expect(Review.all).to_not include(@review_1)
-        expect(Review.all).to_not include(@review_3)
       end
     end
   end

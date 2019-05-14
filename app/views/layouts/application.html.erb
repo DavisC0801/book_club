@@ -17,7 +17,19 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item"><%= link_to "Home", root_path, { :class=>"nav-link" } %></li>
           <li class="nav-item"><%= link_to "Browse All Books", books_path, { :class => "nav-link" } %></li>
-          <!-- later on add sort options here using bootstrap "nav-item dropdown" from https://getbootstrap.com/docs/4.3/examples/jumbotron/ -->
+          <% if @show_sort_button %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By...</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01" id="sort-bar">
+                <%= link_to "average rating (lowest to highest)", "#{books_path}?sort=rating-asc", class: "dropdown-item" %>
+                <%= link_to "average rating (highest to lowest)", "#{books_path}?sort=rating-desc", class: "dropdown-item" %>
+                <%= link_to "number of pages (lowest to highest)", "#{books_path}?sort=pages-asc", class: "dropdown-item" %>
+                <%= link_to "number of pages (highest to lowest)", "#{books_path}?sort=pages-desc", class: "dropdown-item" %>
+                <%= link_to "number of reviews (lowest to highest)", "#{books_path}?sort=reviews-asc", class: "dropdown-item" %>
+                <%= link_to "number of reviews (highest to lowest)", "#{books_path}?sort=reviews-desc", class: "dropdown-item" %>
+              </div>
+            </li>
+          <% end %>
         </ul>
       </nav>
     <% end %>
