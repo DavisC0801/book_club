@@ -127,5 +127,39 @@ RSpec.describe Book, type: :model do
     it "lists coauthors" do
       expect(@book_1.coauthors(@author_2)).to eq([@author_1, @author_3])
     end
+
+    context "add additional reviews" do
+      before :each do
+        @book_1 = Book.create!(title: "I'm another Book", page_count: 573, year_published: 1965)
+        user_1 = User.create!(username: "Chris Davis")
+        user_2 = User.create!(username: "Alexandra Chakersa")
+        user_3 = User.create!(username: "Kayden Drake")
+        user_4 = User.create!(username: "Bas Hamer")
+        @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: user_1)
+        @review_2 = @book_1.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: user_2)
+        @review_3 = @book_1.reviews.create!(title: "This is ok.", rating: 3, text: "Read it if you want.", user: user_3)
+        @review_4 = @book_1.reviews.create!(title: "This book isn't good.", rating: 2, text: "It's bad.", user: user_4)
+      end
+
+      it "orders reviews" do
+        expected_ascending = [@review_2, @review_4, @review_3, @review_1]
+        expected_descending = [@review_1, @review_3, @review_4, @review_2]
+
+        expect(@book_1.sort_book_reviews).to eq(expected_ascending)
+        expect(@book_1.sort_book_reviews(false)).to eq(expected_descending)
+      end
+
+      it "finds the top reviews" do
+        expect(@book_1.top_reviews(1).to_a).to eq([@review_1])
+        expect(@book_1.top_reviews(2).to_a).to eq([@review_1, @review_3])
+        expect(@book_1.top_reviews(3).to_a).to eq([@review_1, @review_3, @review_4])
+      end
+
+      it "finds the bottom reviews" do
+        expect(@book_1.bottom_reviews(1).to_a).to eq([@review_2])
+        expect(@book_1.bottom_reviews(2).to_a).to eq([@review_2, @review_4])
+        expect(@book_1.bottom_reviews(3).to_a).to eq([@review_2, @review_4, @review_3])
+      end
+    end
   end
 end

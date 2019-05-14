@@ -52,4 +52,20 @@ class Book < ApplicationRecord
   def coauthors(author)
     authors - [author]
   end
+
+  def top_reviews(limit)
+    sort_book_reviews(false).order(updated_at: :desc).limit(limit)
+  end
+
+  def bottom_reviews(limit)
+    sort_book_reviews.limit(limit)
+  end
+
+  def sort_book_reviews(ascending = true)
+    if ascending
+      reviews.order(rating: :asc)
+    else
+      reviews.order(rating: :desc)
+    end
+  end
 end

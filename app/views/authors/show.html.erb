@@ -30,6 +30,17 @@
             <p class="card-text"><%= book.review_count %> reviews</p>
             <p class="card-text"><%= book.page_count %> pages</p>
             <p class="card-text">Published in <%= book.year_published.abs %><%= " BC" if book.year_published < 0 %></p>
+            <% if book.top_reviews(1).first != nil %>
+              <% book.top_reviews(1).each do |review|%>
+                <h5 class="card-title">Top Review:</h5>
+                <p class="card-text"><%= review.title %></p>
+                <div class="fancy-rating">
+                  <div class="star-filling-bar" style="width:<%= review.rating_percentage %>%;"></div>
+                  <%= image_tag "stars.gif", alt: "stars", class: "stars" %>
+                </div>
+                <p class="card-text">Written by: <%= link_to review.user.username, user_path(review.user) %></p>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>
