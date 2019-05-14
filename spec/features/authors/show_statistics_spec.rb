@@ -38,17 +38,7 @@ describe "As a Visitor" do
       visit author_path(author_2)
 
       within("#book-#{book_3.id}") do
-        expect(page).to have_content("This book has no reviews yet.")
-      end
-    end
-
-    it "should inform the user if the author has no books" do
-      author_2 = Author.create!(name: "Ernest Hemmingway")
-
-      visit author_path(author_2)
-
-      within("#book-list") do
-        expect(page).to have_content("This author has no books in the database.")
+        expect(page).to have_content("0 reviews")
       end
     end
   end

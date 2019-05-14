@@ -134,7 +134,7 @@ RSpec.describe Book, type: :model do
         user_1 = User.create!(username: "Chris Davis")
         user_2 = User.create!(username: "Alexandra Chakersa")
         user_3 = User.create!(username: "Kayden Drake")
-        user_4 = User.create!(username: "Bos")
+        user_4 = User.create!(username: "Bas Hamer")
         @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: user_1)
         @review_2 = @book_1.reviews.create!(title: "This book sucks!", rating: 1, text: "Don't read it!", user: user_2)
         @review_3 = @book_1.reviews.create!(title: "This is ok.", rating: 3, text: "Read it if you want.", user: user_3)
