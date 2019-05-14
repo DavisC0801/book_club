@@ -75,4 +75,52 @@ RSpec.describe "As a visitor", type: :feature do
       end
     end
   end
+
+  describe "book index statistics with missing data" do
+    before(:each) do
+      @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+      @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
+      @user_1 = User.create(username: "Chris Davis")
+      @user_2 = User.create(username: "Alexandra Chakeres")
+      @review_1 = @book_1.reviews.create!(title: "This book rocks!", rating: 5, text: "Read it!", user: @user_1)
+    end
+
+    it "highest rated books only shows books that have been reviewed" do
+      visit books_path
+
+      within "#statistics" do
+        expect(page).to have_content("Statistics")
+
+        within "#highest-rated" do
+          expect(page).to have_content(@book_1.title)
+          expect(page).to_not have_content(@book_2.title)
+          expect(page.all("li").count).to eq(1)
+        end
+      end
+    end
+
+    it "highest rated books only shows books that have been reviewed" do
+      visit books_path
+
+      within "#statistics" do
+        within "#lowest-rated" do
+          expect(page).to have_content(@book_1.title)
+          expect(page).to_not have_content(@book_2.title)
+          expect(page.all("li").count).to eq(1)
+        end
+      end
+    end
+
+    it "shows the 3 users with the most reviews" do
+      visit books_path
+
+      within "#statistics" do
+        within "#most-reviews" do
+          expect(page).to have_content(@user_1.username)
+          expect(page).to_not have_content(@user_2.username)
+          expect(page.all("li").count).to eq(1)
+        end
+      end
+    end
+  end
 end
