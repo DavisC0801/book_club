@@ -33,13 +33,13 @@ RSpec.describe "As a visitor", type: :feature do
 
         within "#highest-rated" do
           expect(page).to have_content("Highest Rated Books")
-          expect(page.all("li")[0]).to have_content(@book_5.title)
+          expect(page.all("li")[0]).to have_link(@book_5.title)
           expect(page.all("li")[0]).to have_content(@book_5.average_rating.round(1))
-          expect(page.all("li")[1]).to have_content(@book_2.title)
+          expect(page.all("li")[1]).to have_link(@book_2.title)
           expect(page.all("li")[1]).to have_content(@book_2.average_rating.round(1))
-          expect(page.all("li")[2]).to have_content(@book_4.title)
+          expect(page.all("li")[2]).to have_link(@book_4.title)
           expect(page.all("li")[2]).to have_content(@book_4.average_rating.round(1))
-          expect(page).to_not have_content(@book_3.title)
+          expect(page).to_not have_link(@book_3.title)
         end
       end
     end
@@ -50,13 +50,13 @@ RSpec.describe "As a visitor", type: :feature do
       within "#statistics" do
         within "#lowest-rated" do
           expect(page).to have_content("Lowest Rated Books")
-          expect(page.all("li")[0]).to have_content(@book_1.title)
+          expect(page.all("li")[0]).to have_link(@book_1.title)
           expect(page.all("li")[0]).to have_content(@book_1.average_rating.round(1))
-          expect(page.all("li")[1]).to have_content(@book_4.title)
+          expect(page.all("li")[1]).to have_link(@book_4.title)
           expect(page.all("li")[1]).to have_content(@book_4.average_rating.round(1))
-          expect(page.all("li")[2]).to have_content(@book_2.title)
+          expect(page.all("li")[2]).to have_link(@book_2.title)
           expect(page.all("li")[2]).to have_content(@book_2.average_rating.round(1))
-          expect(page).to_not have_content(@book_3.title)
+          expect(page).to_not have_link(@book_3.title)
         end
       end
     end
@@ -67,13 +67,13 @@ RSpec.describe "As a visitor", type: :feature do
       within "#statistics" do
         within "#most-reviews" do
           expect(page).to have_content("Users with Most Reviews Written")
-          expect(page.all("li")[0]).to have_content(@user_2.username)
+          expect(page.all("li")[0]).to have_link(@user_2.username)
           expect(page.all("li")[0]).to have_content(@user_2.reviews_count)
-          expect(page.all("li")[1]).to have_content(@user_5.username)
+          expect(page.all("li")[1]).to have_link(@user_5.username)
           expect(page.all("li")[1]).to have_content(@user_5.reviews_count)
-          expect(page.all("li")[2]).to have_content(@user_1.username)
+          expect(page.all("li")[2]).to have_link(@user_1.username)
           expect(page.all("li")[2]).to have_content(@user_1.reviews_count)
-          expect(page).to_not have_content(@user_4.username)
+          expect(page).to_not have_link(@user_4.username)
         end
       end
     end
@@ -93,8 +93,8 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#highest-rated" do
-          expect(page).to have_content(@book_1.title)
-          expect(page).to_not have_content(@book_2.title)
+          expect(page).to have_link(@book_1.title)
+          expect(page).to_not have_link(@book_2.title)
           expect(page.all("li").count).to eq(1)
         end
       end
@@ -105,8 +105,8 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#lowest-rated" do
-          expect(page).to have_content(@book_1.title)
-          expect(page).to_not have_content(@book_2.title)
+          expect(page).to have_link(@book_1.title)
+          expect(page).to_not have_link(@book_2.title)
           expect(page.all("li").count).to eq(1)
         end
       end
@@ -117,8 +117,8 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#most-reviews" do
-          expect(page).to have_content(@user_1.username)
-          expect(page).to_not have_content(@user_2.username)
+          expect(page).to have_link(@user_1.username)
+          expect(page).to_not have_link(@user_2.username)
           expect(page.all("li").count).to eq(1)
         end
       end
