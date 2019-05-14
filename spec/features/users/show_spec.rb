@@ -12,7 +12,9 @@ RSpec.describe "as a visitor" do
     it "I am taken to a show page for that user." do
       visit book_path(@book_1)
 
-      click_link(@user_1.username.to_s)
+      within("#review-list") do
+        click_link(@user_1.username.to_s)
+      end
 
       expect(page.status_code).to eq(200)
       expect(current_path).to eq(user_path(@user_1))

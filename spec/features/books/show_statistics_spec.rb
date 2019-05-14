@@ -62,7 +62,7 @@ RSpec.describe "As a visitor", type: :feature do
       visit book_path(@book_1)
 
       within "#statistics" do
-        within ".fancy-rating" do
+        within "#average-rating" do
           expect(page).to have_content("Average Rating:")
           expect(page.html).to include("style=\"width:#{@book_1.rating_percentage}%;\"")
         end
@@ -102,7 +102,9 @@ RSpec.describe "As a visitor", type: :feature do
 
   describe "book show statistics with no data" do
     it "shows a message when the book has no reviews" do
-      visit book_path(@book_1)
+      book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
+
+      visit book_path(book_1)
 
       within "#statistics" do
         expect(page).to have_content("This book doesn't have any reviews yet.")
