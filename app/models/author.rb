@@ -18,8 +18,6 @@ class Author < ApplicationRecord
   end
 
   def rating_percentage
-    (books.joins(:reviews)
-    .average("reviews.rating") / 5.0 * 100)
-    .round(0).to_i
+    (books.joins(:reviews).average("reviews.rating") / 5.0 * 100).round(0).to_i
   end
 end
