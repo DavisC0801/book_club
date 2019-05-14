@@ -32,6 +32,7 @@ RSpec.describe "As a visitor", type: :feature do
         expect(page).to have_content("Statistics")
 
         within "#highest-rated" do
+          expect(page).to have_content("Highest Rated Books")
           expect(page.all("li")[0]).to have_content(@book_5.title)
           expect(page.all("li")[0]).to have_content(@book_5.average_rating.round(1))
           expect(page.all("li")[1]).to have_content(@book_2.title)
@@ -48,6 +49,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#lowest-rated" do
+          expect(page).to have_content("Lowest Rated Books")
           expect(page.all("li")[0]).to have_content(@book_1.title)
           expect(page.all("li")[0]).to have_content(@book_1.average_rating.round(1))
           expect(page.all("li")[1]).to have_content(@book_4.title)
@@ -64,6 +66,7 @@ RSpec.describe "As a visitor", type: :feature do
 
       within "#statistics" do
         within "#most-reviews" do
+          expect(page).to have_content("Users with Most Reviews Written")
           expect(page.all("li")[0]).to have_content(@user_2.username)
           expect(page.all("li")[0]).to have_content(@user_2.reviews_count)
           expect(page.all("li")[1]).to have_content(@user_5.username)
@@ -76,7 +79,7 @@ RSpec.describe "As a visitor", type: :feature do
     end
   end
 
-  describe "book index statistics with missing data" do
+  describe "book index statistics with partial data" do
     before(:each) do
       @book_1 = Book.create!(title: "The Frozen Deep", page_count: 106, year_published: 1874, thumbnail: "https://images.gr-assets.com/books/1328728986l/1009218.jpg")
       @book_2 = Book.create!(title: "To Kill a Mockingbird", page_count: 600, year_published: 1960, thumbnail: "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG")
@@ -89,8 +92,6 @@ RSpec.describe "As a visitor", type: :feature do
       visit books_path
 
       within "#statistics" do
-        expect(page).to have_content("Statistics")
-
         within "#highest-rated" do
           expect(page).to have_content(@book_1.title)
           expect(page).to_not have_content(@book_2.title)
@@ -121,6 +122,21 @@ RSpec.describe "As a visitor", type: :feature do
           expect(page.all("li").count).to eq(1)
         end
       end
+    end
+  end
+
+  describe "book index statistics with no data" do
+    it "shows a message when no books have reviews" do
+      visit books_path
+
+      within "#statistics" do
+        expect(page).to have_content("No books have reviews yet.")
+        expect(page).to_not have_content("Highest Rated Books")
+        expect(page).to_not have_content("Highest Rated Books")
+        expect(page).to_not have_content("Users with Most Reviews Written")
+      end
+
+      save_and_open_page
     end
   end
 end

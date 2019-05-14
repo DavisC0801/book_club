@@ -52,6 +52,10 @@ class Book < ApplicationRecord
         .limit(number)
   end
 
+  def self.total_review_count
+    self.joins(:reviews).count
+  end
+
   def review_count
     reviews.count
   end
