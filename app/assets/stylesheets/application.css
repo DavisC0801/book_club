@@ -27,6 +27,11 @@ body {
   max-width: 100px;
 }
 
+.book-review {
+  margin: 5px;
+  padding: 5px;
+}
+
 .fancy-rating {
   position: relative;
   background-color: #cecece;
