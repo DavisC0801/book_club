@@ -61,6 +61,10 @@ RSpec.describe Book, type: :model do
       it "sorts books by number of reviews (descending)" do
         expect(Book.sort_by_review_count(false)).to eq([@book_2, @book_1, @book_3])
       end
+
+      it "counts all the reviews for all books" do
+        expect(Book.total_review_count).to eq(3)
+      end
     end
 
     describe "when destroying a book" do
