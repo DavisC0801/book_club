@@ -53,7 +53,7 @@ class BooksController < ApplicationController
       flash[:notice] = "#{book.title} was added"
       redirect_to book_path(book)
     else
-      flash[:notice] = book.errors.full_messages
+      flash[:notice] = book.errors.full_messages.first
       redirect_back(fallback_location: new_book_path)
     end
   end
