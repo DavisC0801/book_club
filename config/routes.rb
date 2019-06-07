@@ -17,7 +17,13 @@ Rails.application.routes.draw do
   post '/books', to: "books#create"
   delete '/books/:id', to: "books#destroy"
 
-  resources :reviews, only: :destroy
-  resources :authors, only: [:show, :destroy]
-  resources :users, only: :show
+  # resources :reviews, only: :destroy
+  delete '/reviews/:id', to: "reviews#destroy", as: :review
+
+  # resources :authors, only: [:show, :destroy]
+  get '/authors/:id', to: "authors#show", as: :author
+  delete '/authors/:id', to: "authors#destroy"
+
+  # resources :users, only: :show
+  get '/users/:id', to: "users#show", as: :user
 end
